@@ -443,6 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1388514130}
   - component: {fileID: 1388514131}
+  - component: {fileID: 1388514132}
   m_Layer: 0
   m_Name: PhotonManager
   m_TagString: Untagged
@@ -475,6 +476,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: ShareData
+--- !u!114 &1388514132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1388514129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d355c641e62df64697e795d926a3a3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1550538078
 GameObject:
   m_ObjectHideFlags: 0

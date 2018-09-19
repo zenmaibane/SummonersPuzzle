@@ -6,7 +6,7 @@ public class PhotonVariable : Photon.MonoBehaviour
 {
 
 	public int HP;
-	public int getHP;
+	//public int getHP;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +16,7 @@ public class PhotonVariable : Photon.MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		HP = Random.Range(0, 100);
+		//HP = Random.Range(0, 100);
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -28,7 +28,7 @@ public class PhotonVariable : Photon.MonoBehaviour
 		}
 		else
 		{
-			getHP = (int)stream.ReceiveNext();
+			HP = (int)stream.ReceiveNext();
 			//_fuga = (int)stream.ReceiveNext();
 		}
 	}

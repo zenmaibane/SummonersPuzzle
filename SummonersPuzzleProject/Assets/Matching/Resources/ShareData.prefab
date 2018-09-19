@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4770971881340896}
   - component: {fileID: 114971376726979872}
   - component: {fileID: 114616479467525914}
+  - component: {fileID: 114243069264582390}
+  - component: {fileID: 114728288520116496}
   m_Layer: 0
   m_Name: ShareData
   m_TagString: Untagged
@@ -41,6 +43,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114243069264582390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1097688272830232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d355c641e62df64697e795d926a3a3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114616479467525914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,7 +66,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 0
-  getHP: 0
+--- !u!114 &114728288520116496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1097688272830232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab767024e44ecf24c8e947f68c326878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114971376726979872
 MonoBehaviour:
   m_ObjectHideFlags: 1

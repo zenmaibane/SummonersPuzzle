@@ -9,6 +9,8 @@ public class TextChange : MonoBehaviour {
 
 	private void Start()
 	{
+		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(transform.parent.gameObject);
 	}
 
 
@@ -16,12 +18,12 @@ public class TextChange : MonoBehaviour {
 	void Update () {
 		if(photonmanager == null)
 		{
-			photonmanager = GameObject.Find("ShareData(Clone)");
+			photonmanager = GameObject.Find("ShareData(Mine)");
 		}
 		else
 		{
 			//print("getHP = " + photonmanager.GetComponent<PhotonVariable>().getHP.ToString());
-			GetComponent<Text>().text = photonmanager.GetComponent<PhotonVariable>().getHP.ToString();
+			GetComponent<Text>().text = photonmanager.GetComponent<PhotonVariable>().HP.ToString();
 		}
 	}
 }

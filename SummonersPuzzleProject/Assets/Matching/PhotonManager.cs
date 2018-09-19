@@ -13,8 +13,6 @@ public class PhotonManager : Photon.PunBehaviour
 		PhotonNetwork.ConnectUsingSettings("0.1");
 		PhotonNetwork.sendRate = 30;
 
-		DontDestroyOnLoad(gameObject);
-		SceneManager.activeSceneChanged += OnActiveSceneChanged;
 
 	}
 
@@ -72,7 +70,7 @@ public class PhotonManager : Photon.PunBehaviour
 	{
 		if(PhotonNetwork.playerList.Length == 2)
 		{
-			//SceneManager.LoadScene("GameTest");
+			SceneManager.LoadScene("GameTest");
 		}
 	}
 
@@ -80,11 +78,5 @@ public class PhotonManager : Photon.PunBehaviour
 	void OnGUI()
 	{
 		//GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
-		GUILayout.Label("your name = " + PhotonNetwork.playerName);
-	}
-
-	void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
-	{
-		Debug.Log(prevScene.name + "->" + nextScene.name);
 	}
 }
