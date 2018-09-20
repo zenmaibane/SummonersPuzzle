@@ -22,8 +22,8 @@ public class BlockShooter : MonoBehaviour
     private List<GameObject> cols;
     private BlockGenerator blockGenerator;
     private GameObject blockArea;
+    private GameObject blockPrefab;
     private GameObject newBlock;
-
 
     private bool hasBlock = false;
 
@@ -37,7 +37,7 @@ public class BlockShooter : MonoBehaviour
         cols.Add(col4);
         cols.Add(col5);
         blockArea = GameObject.Find("BlockArea");
-        newBlock = (GameObject)Resources.Load("Block");
+        blockPrefab = (GameObject)Resources.Load("Block");
     }
 
     void Update()
@@ -54,10 +54,15 @@ public class BlockShooter : MonoBehaviour
                 {
                     var go = hit.collider.gameObject;
                     // Debug.Log(cols.IndexOf(go));
-                    if (!hasBlock)
+                    if (hasBlock)
                     {
-                        var obj = Instantiate(newBlock, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
-                        obj.transform.parent = blockArea.transform;
+                        newBlock.transform.position = worldPoint;
+                        // Debug.Log("掴んでる");
+                    }
+                    else
+                    {
+                        newBlock = Instantiate(blockPrefab, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
+                        newBlock.transform.parent = blockArea.transform;
                         hasBlock = true;
                         // Debug.Log("掴んだ");
                     }
