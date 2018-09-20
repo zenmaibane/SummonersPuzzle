@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManager : MonoBehaviour
+public class SelfSceneManager : MonoBehaviour
 {
 
-    private static SceneManager instance;
-    public static SceneManager Instance
+    private static SelfSceneManager instance;
+    public static SelfSceneManager Instance
     {
         get
         {
@@ -21,7 +21,7 @@ public class SceneManager : MonoBehaviour
     }
     public static void Instantiate(GameObject go)
     {
-        instance = go.GetComponent<SceneManager>() ?? go.AddComponent<SceneManager>();
+        instance = go.GetComponent<SelfSceneManager>() ?? go.AddComponent<SelfSceneManager>();
         if (UnityEngine.Application.isPlaying)
         {
             DontDestroyOnLoad(instance.gameObject);

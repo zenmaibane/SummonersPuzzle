@@ -10,7 +10,7 @@ public class HomeSceneController : MonoBehaviour
     [SerializeField] private Button soloButton;
     [SerializeField] private Button howToButton;
 
-    private SceneManager sceneManager;
+    private SelfSceneManager sceneManager;
 
 
     void Start()
@@ -18,8 +18,8 @@ public class HomeSceneController : MonoBehaviour
         vsButton?.onClick.AddListener(OnClickVsButton);
         soloButton?.onClick.AddListener(OnClickSoloButton);
         howToButton?.onClick.AddListener(OnClickHowToButton);
-        SceneManager.Instantiate(GameObject.Find("SceneManager"));
-        sceneManager = SceneManager.Instance;
+        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
+        sceneManager = SelfSceneManager.Instance;
     }
 
     void OnClickVsButton(){

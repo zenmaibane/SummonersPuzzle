@@ -9,7 +9,7 @@ public class CharaSelectSceneController : MonoBehaviour
     [SerializeField] private Button backButton;
     [SerializeField] private Button selectButton;
 
-    private SceneManager sceneManager;
+    private SelfSceneManager sceneManager;
 
 
     void Start()
@@ -18,9 +18,9 @@ public class CharaSelectSceneController : MonoBehaviour
         selectButton?.onClick.AddListener(OnClickSelectButton);
 
         //リリース時には消す
-        SceneManager.Instantiate(GameObject.Find("SceneManager"));        
+        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));        
         
-        sceneManager = SceneManager.Instance;
+        sceneManager = SelfSceneManager.Instance;
     }
 
     void OnClickBackButton(){

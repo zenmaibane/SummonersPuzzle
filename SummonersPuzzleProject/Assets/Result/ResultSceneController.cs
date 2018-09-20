@@ -11,7 +11,7 @@ public class ResultSceneController : MonoBehaviour
     [SerializeField] private Button charaSelectButton;
     [SerializeField] private Button homeButton;
 
-    private SceneManager sceneManager;
+    private SelfSceneManager sceneManager;
 
 
     void Start()
@@ -21,9 +21,9 @@ public class ResultSceneController : MonoBehaviour
         homeButton?.onClick.AddListener(OnClickHomeButton);
         
 		//本番時には消す
-		SceneManager.Instantiate(GameObject.Find("SceneManager"));
+		SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
         
-		sceneManager = SceneManager.Instance;
+		sceneManager = SelfSceneManager.Instance;
     }
 
     void OnClickReplayButton()
