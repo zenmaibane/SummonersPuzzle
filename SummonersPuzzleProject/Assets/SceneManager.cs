@@ -28,21 +28,33 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void LoadVsScene() {
+    public void LoadHomeScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
+    }
+
+    public void LoadVsScene()
+    {
         //2人プレイであることの設定の記述が必要
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("CharaSelect");
     }
 
-    public void LoadSoloScene() { 
+    public void LoadSoloScene()
+    {
         //1人プレイであることの設定の記述が必要
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("CharaSelect");        
+        UnityEngine.SceneManagement.SceneManager.LoadScene("CharaSelect");
     }
 
-    public void LoadHowToScene() {
+    public void LoadHowToScene()
+    {
         Debug.Log("遊び方シーンを読み込んだよ");
         Debug.Log("余裕があったらチュートリアル作るよ");
     }
 
+    public void LoadBattleScene()
+    {
+        Debug.Log("バトルシーンを読み込んだよ");
+    }
 }
