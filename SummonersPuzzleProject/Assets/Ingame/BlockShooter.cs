@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,8 +26,6 @@ public class BlockShooter : MonoBehaviour
     private GameObject blockPrefab;
     private GameObject newBlock;
 
-    private bool hasBlock = false;
-
     void Start()
     {
         blockGenerator = GameObject.Find("BlockStarter").GetComponent<BlockGenerator>();
@@ -52,31 +51,64 @@ public class BlockShooter : MonoBehaviour
                 Bounds rect = hit.collider.bounds;
                 if (rect.Contains(worldPoint))
                 {
-                    var go = hit.collider.gameObject;
-                    // Debug.Log(cols.IndexOf(go));
+                    var neighborCol = hit.collider.gameObject;
 
-                    if (hasBlock)
+                    if (newBlock == null)
                     {
-                        newBlock.transform.position = worldPoint;
-                        // Debug.Log("掴んでる");
+                        // 掴んだ時
+                        newBlock = GenerateBlockGameObject(worldPoint);
                     }
-                    else
-                    {
-                        newBlock = Instantiate(blockPrefab, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
-                        newBlock.GetComponent<Block>().blockData = blockGenerator.GetNextBlock();
-                        Debug.Log(newBlock.GetComponent<Block>().blockData.Color);
-                        Debug.Log(newBlock.GetComponent<Block>().blockData.Rank);
-                        newBlock.transform.parent = blockArea.transform;
-                        hasBlock = true;
-                        // Debug.Log("掴んだ");
-                    }
+
+                    SetBlockPosition(neighborCol);
                 }
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
-            hasBlock = false;
             // Debug.Log("離した");
+            newBlock = null;
         }
     }
+
+    private void SetBlockPosition(GameObject neighborCol)
+    {
+        var index = cols.IndexOf(neighborCol);
+        Vector2 pos = Vector2.zero;
+        switch (index)
+        {
+            case 0:
+                pos = new Vector2(-1.86f, -4.53f);
+                break;
+            case 1:
+                pos = new Vector2(-0.83f, -4.53f);
+                break;
+            case 2:
+                pos = new Vector2(0.13f, -4.53f);
+                break;
+            case 3:
+                pos = new Vector2(1.16f, -4.53f);
+                break;
+            case 4:
+                pos = new Vector2(2.1f, -4.53f);
+                break;
+            default:
+                throw new ArgumentException("None");
+        }
+        newBlock.transform.position = pos;
+    }
+
+    private GameObject GenerateBlockGameObject(Vector2 worldPoint)
+    {
+        var go = Instantiate(blockPrefab, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
+        go.GetComponent<Block>().blockData = blockGenerator.GetNextBlock();
+
+        Debug.Log(go.GetComponent<Block>().blockData.Color);
+        Debug.Log(go.GetComponent<Block>().blockData.Rank);
+
+        go.transform.parent = blockArea.transform;
+
+        return go;
+    }
 }
+
+
