@@ -9,9 +9,10 @@ using UnityEngine;
  * </summary>
 */
 public class Block : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+	
+	public BlockData blockData { get; set; }
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
