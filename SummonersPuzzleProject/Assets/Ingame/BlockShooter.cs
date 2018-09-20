@@ -21,14 +21,12 @@ public class BlockShooter : MonoBehaviour
     [SerializeField] GameObject col5;
 
     private List<GameObject> cols;
-    private BlockGenerator blockGenerator;
     private GameObject blockArea;
     private GameObject blockPrefab;
     private GameObject newBlock;
 
     void Start()
     {
-        blockGenerator = GameObject.Find("BlockStarter").GetComponent<BlockGenerator>();
         cols = new List<GameObject>();
         cols.Add(col1);
         cols.Add(col2);
@@ -100,13 +98,7 @@ public class BlockShooter : MonoBehaviour
     private GameObject GenerateBlockGameObject(Vector2 worldPoint)
     {
         var go = Instantiate(blockPrefab, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
-        go.GetComponent<Block>().blockData = blockGenerator.GetNextBlock();
-
-        Debug.Log(go.GetComponent<Block>().blockData.Color);
-        Debug.Log(go.GetComponent<Block>().blockData.Rank);
-
         go.transform.parent = blockArea.transform;
-
         return go;
     }
 }
