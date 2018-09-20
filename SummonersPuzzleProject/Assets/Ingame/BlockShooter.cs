@@ -20,9 +20,13 @@ public class BlockShooter : MonoBehaviour
     [SerializeField] GameObject col5;
 
     private List<GameObject> cols;
-
-
     private BlockGenerator blockGenerator;
+    private GameObject blockArea;
+    private GameObject newBlock;
+
+
+    private bool hasBlock = false;
+
     void Start()
     {
         blockGenerator = GameObject.Find("BlockStarter").GetComponent<BlockGenerator>();
@@ -32,30 +36,38 @@ public class BlockShooter : MonoBehaviour
         cols.Add(col3);
         cols.Add(col4);
         cols.Add(col5);
+        blockArea = GameObject.Find("BlockArea");
+        newBlock = (GameObject)Resources.Load("Block");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButton(0))
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Input.GetMouseButtonDown(0))
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+
+            if (hit)
             {
-                RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
-
-                if (hit)
+                Bounds rect = hit.collider.bounds;
+                if (rect.Contains(worldPoint))
                 {
-                    Bounds rect = hit.collider.bounds;
-
-                    if (rect.Contains(worldPoint))
+                    var go = hit.collider.gameObject;
+                    // Debug.Log(cols.IndexOf(go));
+                    if (!hasBlock)
                     {
-                        var go = hit.collider.gameObject;
-                        Debug.Log(cols.IndexOf(go));
+                        var obj = Instantiate(newBlock, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
+                        obj.transform.parent = blockArea.transform;
+                        hasBlock = true;
+                        // Debug.Log("掴んだ");
                     }
                 }
             }
         }
-
+        if (Input.GetMouseButtonUp(0))
+        {
+            hasBlock = false;
+            // Debug.Log("離した");
+        }
     }
 }
