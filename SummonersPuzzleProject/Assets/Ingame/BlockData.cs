@@ -8,15 +8,18 @@ using UnityEngine;
  * 　例：ランク、色など
  * </summary>
 */
-public class BlockData {
+public class BlockData
+{
+    private int rank;
+    public int Rank { get; private set; }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private BlockColor color;
+
+    public BlockColor Color { get; private set; }
+
+    public BlockData(int rank, BlockColor color)
+    {
+        this.Rank = rank;
+        this.Color = color;
+    }
 }
