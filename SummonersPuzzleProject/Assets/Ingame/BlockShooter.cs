@@ -54,6 +54,7 @@ public class BlockShooter : MonoBehaviour
                 {
                     var go = hit.collider.gameObject;
                     // Debug.Log(cols.IndexOf(go));
+
                     if (hasBlock)
                     {
                         newBlock.transform.position = worldPoint;
@@ -62,6 +63,9 @@ public class BlockShooter : MonoBehaviour
                     else
                     {
                         newBlock = Instantiate(blockPrefab, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
+                        newBlock.GetComponent<Block>().blockData = blockGenerator.GetNextBlock();
+                        Debug.Log(newBlock.GetComponent<Block>().blockData.Color);
+                        Debug.Log(newBlock.GetComponent<Block>().blockData.Rank);
                         newBlock.transform.parent = blockArea.transform;
                         hasBlock = true;
                         // Debug.Log("掴んだ");
