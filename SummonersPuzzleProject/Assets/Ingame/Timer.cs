@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /**
  * <summary>
@@ -11,20 +12,29 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
 
-    private float summonSpeed;
+    private float summonSpeedSec;
     private bool isPlaying;
     private double countTime = 0;
     private GameObject blockArea;
     private GameObject HPManager;
 
+    [SerializeField] private Slider timeSlider;
+
     void Start()
     {
         // キャラクターによって詠唱時間を変える
-        summonSpeed = 3000;
+        summonSpeedSec = 5;
 
+        // リリース
         isPlaying = false;
+
+        //これはデバッグ用
+        StartGameTimer();
+        timeSlider.maxValue = summonSpeedSec;
+
         blockArea = GameObject.Find("BlockArea");
         HPManager = GameObject.Find("HPManager");
+        
     }
 
     // Update is called once per frame
@@ -45,20 +55,31 @@ public class Timer : MonoBehaviour
     private void Summon(double deltaTime)
     {
         countTime += deltaTime;
-        var canSummon = (countTime - summonSpeed) >= float.Epsilon;
+        // Debug.Log($"countTime: {countTime}");
+        var canSummon = (countTime - summonSpeedSec) >= float.Epsilon;
         if (canSummon)
         {
             // 最上部のモンスターを消してダメージを与える
             GridInfo gridInfo = blockArea.GetComponent<GridInfo>();
             int totalRank = 0;
-            for (int i = 0; i <= gridInfo.monsterPos.Length; i++)
+            for (int i = 0; i < gridInfo.monsterPos.GetLength(0); i++)
             {
-                totalRank += gridInfo.monsterPos[0, i].GetComponent<Block>().blockData.Rank;
-                Destroy(gridInfo.monsterPos[0, i]);
-                gridInfo.monsterPos[0, i] = null;
+                var monster = gridInfo.monsterPos[i, 0];
+                if (monster != null)
+                {
+                    totalRank += monster.GetComponent<Block>().blockData.Rank;
+                    Destroy(monster);
+                    monster = null;
+                }
             }
             HPManager.GetComponent<HPManager>().DamageRival(totalRank);
             countTime = 0;
         }
+        timeSlider.value = (float)(summonSpeedSec - countTime);
+    }
+
+    public void StartGameTimer()
+    {
+        isPlaying = true;
     }
 }
