@@ -13,6 +13,8 @@ public class BlockAnimation : MonoBehaviour {
 	private GridInfo gridInfo;   // 参照用
 	
 	public bool arrived = false;  // 移動や結合が終わった状態かどうか
+	private bool merged = false;  // 合体処理が終わった状態かどうか
+	private bool deleteFlag = false; // 合体中で、移動が終わり次第削除すべきかどうか
 	
 	void Start () {
 		gridInfo = transform.parent.GetComponent<GridInfo>();
@@ -26,10 +28,11 @@ public class BlockAnimation : MonoBehaviour {
 	{
 		if (Input.GetKeyDown("space"))
 		{
-			SetStartPos(2, 5);
-			targetPos = new Vector2Int(2, 5);
+			//SetStartPos(2, 5);
+			//targetPos = new Vector2Int(2, 5);
+			print(Arr2StrEncode(gridInfo.monsterPos));
 		}
-
+		//print("nowPos:" + nowPos + "\ttargetPos:" + targetPos);
 		if (nowPos.x != targetPos.x || nowPos.y != targetPos.y)
 		{
 			// 今の位置と目標地点が違った場合の処理（移動する）
@@ -46,6 +49,11 @@ public class BlockAnimation : MonoBehaviour {
 			//print("distance = " + Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position));
 			if (Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position) <= 0.05f)
 			{
+				if (deleteFlag)
+				{
+					gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
+					Destroy(this.gameObject);
+				}
 				nowPos = targetPos;
 			}
 		}
@@ -54,10 +62,12 @@ public class BlockAnimation : MonoBehaviour {
 			// 目標地点に到着しているときの処理
 			// まだ上に落ちれるなら落ちて、そうでなければ周りと合体できるかチェック
 			DropCheck();
+			//print("nowPos = " + nowPos + "\tarrived = " + arrived);
 
-			if (arrived)
+			if (arrived == true && merged == false)
 			{
 				MergeCheck();
+				merged = true;
 			}
 		}
 
@@ -68,27 +78,42 @@ public class BlockAnimation : MonoBehaviour {
 	// 削除するときに呼び出す
 	public void Delete()
 	{
-		
+		deleteFlag = true;
 	}
 
 	// 周りと合体できるかチェックする
 	public void MergeCheck()
 	{
 		// 4方向のチェック
-		for(int x = -1; x <= 1; x += 2)
+		for (int x = -1; x <= 1; x += 2)
 		{
-			for (int y = -1; y <= 1; y += 2)
+			try
 			{
-				try{
-					// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
-					if(gridInfo.monsterPos[nowPos.x + x, nowPos.y + y] != null)
-					{
-						gridInfo.monsterPos[nowPos.x + x, nowPos.y + y].GetComponent<BlockAnimation>().targetPos = nowPos;
-						gridInfo.monsterPos[nowPos.x + x, nowPos.y + y].GetComponent<BlockAnimation>().Delete();
-					}
-				}catch{
-					// 枠をはみ出て探索することを防ぐためのtry-catch
+				print("checked monster info : " + gridInfo.monsterPos[nowPos.x + x, nowPos.y]);
+				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
+				if (gridInfo.monsterPos[nowPos.x + x, nowPos.y] != null)
+				{
+					gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().targetPos = nowPos;
+					gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().Delete();
 				}
+			}
+			catch
+			{
+				// 枠をはみ出て探索することを防ぐためのtry-catch
+			}
+		}
+		for (int y = -1; y <= 1; y += 2)
+		{
+			try{
+				print("checked monster info : " + gridInfo.monsterPos[nowPos.x, nowPos.y + y]);
+				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
+				if(gridInfo.monsterPos[nowPos.x, nowPos.y + y] != null)
+				{
+					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().targetPos = nowPos;
+					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().Delete();
+				}
+			}catch{
+				// 枠をはみ出て探索することを防ぐためのtry-catch
 			}
 		}
 	}
@@ -99,28 +124,54 @@ public class BlockAnimation : MonoBehaviour {
 		if(gridInfo == null){
 			gridInfo = GameObject.Find("BlockArea").GetComponent<GridInfo>();
 		}
+		//print("gridInfo : " + gridInfo);
 		nowPos = new Vector2Int(x, y);
 		transform.position = gridInfo.centerCoordinate[x, y];
-		targetPos = nowPos;
+		DropCheck();
+		//targetPos = nowPos;
 	}
 
 	// 自分より上にブロックが無ければ上に詰める
 	public void DropCheck()
 	{
-		try
-		{
-			if (gridInfo.monsterPos[nowPos.x, nowPos.y - 1] == null)
-			{
-				print("come");
-				targetPos = new Vector2Int(nowPos.x, nowPos.y - 1);
-				gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
-				gridInfo.monsterPos[nowPos.x, nowPos.y - 1] = this.gameObject;
-				return;
-			}else{
-				arrived = true;
-			}
-		}catch{ 
-			arrived = true; 
+		if(nowPos.y - 1 < 0){
+			// 最上部到達
+			arrived = true;
+		}
+		else if(gridInfo.monsterPos[nowPos.x, nowPos.y - 1] != null){
+			// ブロック到達
+			arrived = true;
+		}
+		else{
+			arrived = false;
+			targetPos = new Vector2Int(nowPos.x, nowPos.y - 1);
+			gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
+			gridInfo.monsterPos[nowPos.x, nowPos.y - 1] = this.gameObject;
+			//print("まだ落ちます。　nowPos:" + nowPos + "\ttargetPos:" + targetPos);
+			return;
 		}
 	}
+
+	// 二次元配列を文字列化
+	public static string Arr2StrEncode(GameObject[,] intArr)
+	{
+
+		string str = "";
+		for (int i = 0; i < intArr.GetLength(0); i++)
+		{
+			for (int j = 0; j < intArr.GetLength(1); j++)
+			{
+				if (intArr[i, j] != null)
+				{
+					str = str + intArr[i, j].transform.name;
+				}else{
+					str = str + "\t";
+				}
+				str = str + ","; //列の区切り文字
+			}
+			str = str + "\n"; //行の区切り文字
+		}
+		return str;
+	}
+
 }
