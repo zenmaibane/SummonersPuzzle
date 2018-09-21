@@ -28,10 +28,10 @@ public class BlockAnimation : MonoBehaviour {
 	{
 		if (Input.GetKeyDown("space"))
 		{
-			//SetStartPos(2, 5);
-			//targetPos = new Vector2Int(2, 5);
+			// スペースキーを押すと、monsterPosの配列の中身を出力する
 			print(Arr2StrEncode(gridInfo.monsterPos));
 		}
+
 		//print("nowPos:" + nowPos + "\ttargetPos:" + targetPos);
 		if (nowPos.x != targetPos.x || nowPos.y != targetPos.y)
 		{
@@ -81,15 +81,15 @@ public class BlockAnimation : MonoBehaviour {
 		deleteFlag = true;
 	}
 
-	// 周りと合体できるかチェックする
-	public void MergeCheck()
+	// 周りと合体できるかチェックする(冗長な書き方のため、修正可能)
+	private void MergeCheck()
 	{
 		// 4方向のチェック
 		for (int x = -1; x <= 1; x += 2)
 		{
 			try
 			{
-				print("checked monster info : " + gridInfo.monsterPos[nowPos.x + x, nowPos.y]);
+				//print("checked monster info : " + gridInfo.monsterPos[nowPos.x + x, nowPos.y]);
 				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
 				if (gridInfo.monsterPos[nowPos.x + x, nowPos.y] != null)
 				{
@@ -105,7 +105,7 @@ public class BlockAnimation : MonoBehaviour {
 		for (int y = -1; y <= 1; y += 2)
 		{
 			try{
-				print("checked monster info : " + gridInfo.monsterPos[nowPos.x, nowPos.y + y]);
+				//print("checked monster info : " + gridInfo.monsterPos[nowPos.x, nowPos.y + y]);
 				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
 				if(gridInfo.monsterPos[nowPos.x, nowPos.y + y] != null)
 				{
@@ -132,7 +132,7 @@ public class BlockAnimation : MonoBehaviour {
 	}
 
 	// 自分より上にブロックが無ければ上に詰める
-	public void DropCheck()
+	private void DropCheck()
 	{
 		if(nowPos.y - 1 < 0){
 			// 最上部到達
@@ -153,9 +153,8 @@ public class BlockAnimation : MonoBehaviour {
 	}
 
 	// 二次元配列を文字列化
-	public static string Arr2StrEncode(GameObject[,] intArr)
+	private static string Arr2StrEncode(GameObject[,] intArr)
 	{
-
 		string str = "";
 		for (int i = 0; i < intArr.GetLength(0); i++)
 		{
