@@ -91,7 +91,9 @@ public class BlockAnimation : MonoBehaviour {
 			{
 				//print("checked monster info : " + gridInfo.monsterPos[nowPos.x + x, nowPos.y]);
 				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
-				if (gridInfo.monsterPos[nowPos.x + x, nowPos.y] != null)
+				//if (gridInfo.monsterPos[nowPos.x + x, nowPos.y] != null)
+				BlockData targetBlockData = gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<Block>().blockData;
+				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color))
 				{
 					gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().targetPos = nowPos;
 					gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().Delete();
@@ -107,7 +109,10 @@ public class BlockAnimation : MonoBehaviour {
 			try{
 				//print("checked monster info : " + gridInfo.monsterPos[nowPos.x, nowPos.y + y]);
 				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
-				if(gridInfo.monsterPos[nowPos.x, nowPos.y + y] != null)
+				//if(gridInfo.monsterPos[nowPos.x, nowPos.y + y] != null)
+				BlockData targetBlockData = gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<Block>().blockData;
+				print(targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color));
+				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color))
 				{
 					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().targetPos = nowPos;
 					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().Delete();

@@ -33,13 +33,15 @@ public class BlockGenerator : MonoBehaviour
 
     private BlockData GenerateBlockData()
     {
-        // TODO: キャラ性能によって生成するランクの範囲を変える
-        int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 5.0f));
+		// TODO: キャラ性能によって生成するランクの範囲を変える
+		//int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 5.0f));
+		int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 2.0f));
 
-        // TODO: キャラが使える色に応じたものを取得する(現状は3色からランダム)
-        BlockColor[] blockColors = { BlockColor.Red, BlockColor.Yellow, BlockColor.Green };
+		// TODO: キャラが使える色に応じたものを取得する(現状は3色からランダム)
+		//BlockColor[] blockColors = { BlockColor.Red, BlockColor.Yellow, BlockColor.Green };
+		BlockColor[] blockColors = { BlockColor.Red };
 
-        int randomColor = (int)Math.Round(UnityEngine.Random.Range(0.0f, blockColors.Length-1));
+		int randomColor = (int)Math.Round(UnityEngine.Random.Range(0.0f, blockColors.Length-1));
         BlockData blockData = new BlockData(rank, blockColors[randomColor]);
 
         return blockData;
