@@ -93,7 +93,8 @@ public class BlockShooter : MonoBehaviour
                 throw new ArgumentException("None");
         }
         newBlock.transform.position = pos;
-    }
+		newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
+	}
 
     private GameObject GenerateBlockGameObject(Vector2 worldPoint)
     {

@@ -19,7 +19,7 @@ public class BlockAnimation : MonoBehaviour {
 
 		// デバッグ用
 		//SetStartPos(2, 2);
-		targetPos = new Vector2Int(2, 4);
+		//targetPos = new Vector2Int(2, 4);
 	}
 
 	void Update()
@@ -96,8 +96,12 @@ public class BlockAnimation : MonoBehaviour {
 	// ブロックの初期位置を指定
 	public void SetStartPos(int x, int y)
 	{
+		if(gridInfo == null){
+			gridInfo = GameObject.Find("BlockArea").GetComponent<GridInfo>();
+		}
 		nowPos = new Vector2Int(x, y);
 		transform.position = gridInfo.centerCoordinate[x, y];
+		targetPos = nowPos;
 	}
 
 	// 自分より上にブロックが無ければ上に詰める
@@ -107,6 +111,7 @@ public class BlockAnimation : MonoBehaviour {
 		{
 			if (gridInfo.monsterPos[nowPos.x, nowPos.y - 1] == null)
 			{
+				print("come");
 				targetPos = new Vector2Int(nowPos.x, nowPos.y - 1);
 				gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
 				gridInfo.monsterPos[nowPos.x, nowPos.y - 1] = this.gameObject;
