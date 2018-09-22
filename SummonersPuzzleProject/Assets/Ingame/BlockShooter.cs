@@ -54,7 +54,7 @@ public class BlockShooter : MonoBehaviour
                 {
                     var neighborCol = hit.collider.gameObject;
                     // Debug.Log(CanShoot());
-                    Debug.Log(shootingBlock);
+                    // Debug.Log(shootingBlock);
                     if (newBlock == null && CanShoot())
                     {
                         // 掴んだ時
@@ -100,9 +100,9 @@ public class BlockShooter : MonoBehaviour
                 throw new ArgumentException("None");
         }
         newBlock.transform.position = pos;
-	     	newBlock.GetComponent<SpriteRenderer>().sortingOrder = 1;
-		    newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
-		    newBlock.GetComponent<BlockImageManager>().ImageReload();
+		newBlock.GetComponent<SpriteRenderer>().sortingOrder = 1;
+		newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
+		newBlock.GetComponent<BlockImageManager>().ImageReload();
 	}
     private GameObject GenerateBlockGameObject(Vector2 worldPoint)
     {
@@ -117,8 +117,8 @@ public class BlockShooter : MonoBehaviour
             return true;
         }
         BlockAnimation blockAnimation = shootingBlock.GetComponent<BlockAnimation>();
-        Debug.Log(blockAnimation.IsArrived);
-        return blockAnimation.IsArrived && blockAnimation.IsMerged;
+        Debug.Log(blockAnimation.isArrived);
+        return blockAnimation.isArrived && blockAnimation.isMerged;
     }
 }
 
