@@ -4,32 +4,33 @@ using UnityEngine;
 
 public class PhotonVariable : Photon.MonoBehaviour
 {
-
-	public int HP;
+	private GameObject hpManager;
+	public int attackDamage;
 	//public int getHP;
 
-	// Use this for initialization
 	void Start () {
-		HP = Random.Range(0, 100);
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-		//HP = Random.Range(0, 100);
+		//attackDamage = Random.Range(0, 100);
+		attackDamage = 0;
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
 		if (stream.isWriting)
 		{
-			stream.SendNext(HP);
+			stream.SendNext(attackDamage);
 			//stream.SendNext(_fuga);
+
 		}
 		else
 		{
-			HP = (int)stream.ReceiveNext();
+			attackDamage = (int)stream.ReceiveNext();
 			//_fuga = (int)stream.ReceiveNext();
+
+			if(hpManager == null)
+			{
+				hpManager = GameObject.Find("HPManager");
+			}
+			hpManager.GetComponent<HPManager>().BeHurt(attackDamage);
 		}
 	}
 }

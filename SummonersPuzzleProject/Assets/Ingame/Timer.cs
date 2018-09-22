@@ -72,9 +72,9 @@ public class Timer : MonoBehaviour
                     Destroy(monster);
                     monster = null;
                 }
-                HPManager.DamageRival(totalRank);
-            }
-            countTime = 0;
+			}
+			HPManager.DamageRival(totalRank);
+			countTime = 0;
         }
         timeSlider.value = (float)(summonSpeedSec - countTime);
     }

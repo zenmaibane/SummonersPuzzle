@@ -70,7 +70,7 @@ public class PhotonManager : Photon.PunBehaviour
 	{
 		if(PhotonNetwork.playerList.Length == 2)
 		{
-			SceneManager.LoadScene("GameTest");
+			SceneManager.LoadScene("Ingame");
 		}
 	}
 
