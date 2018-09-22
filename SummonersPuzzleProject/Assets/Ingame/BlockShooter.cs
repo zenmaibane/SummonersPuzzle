@@ -26,6 +26,11 @@ public class BlockShooter : MonoBehaviour
     private GameObject newBlock;
     private GameObject shootingBlock;
 
+    private GameObject shootingArea;
+
+
+    private NextBlocksController nextBlocksController;
+
 
     void Start()
     {
@@ -38,6 +43,8 @@ public class BlockShooter : MonoBehaviour
         blockArea = GameObject.Find("BlockArea");
         blockPrefab = (GameObject)Resources.Load("Block");
         shootingBlock = null;
+        nextBlocksController = GameObject.Find("NextBlocksArea").GetComponent<NextBlocksController>();
+        shootingArea = GameObject.Find("ShootingArea");
     }
 
     void Update()
@@ -53,12 +60,12 @@ public class BlockShooter : MonoBehaviour
                 if (rect.Contains(worldPoint))
                 {
                     var neighborCol = hit.collider.gameObject;
-                    // Debug.Log(CanShoot());
-                    // Debug.Log(shootingBlock);
                     if (newBlock == null && CanShoot())
                     {
                         // 掴んだ時
-                        newBlock = GenerateBlockGameObject(worldPoint);
+                        nextBlocksController.SetNextBlockInShootingArea();
+                        newBlock = shootingArea.transform.GetChild(0).gameObject;
+                        newBlock.transform.parent = blockArea.transform;
                         shootingBlock = newBlock;
                     }
                     if (newBlock != null)
@@ -104,12 +111,7 @@ public class BlockShooter : MonoBehaviour
 		newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
 		newBlock.GetComponent<BlockImageManager>().ImageReload();
 	}
-    private GameObject GenerateBlockGameObject(Vector2 worldPoint)
-    {
-        var go = Instantiate(blockPrefab, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
-        go.transform.parent = blockArea.transform;
-        return go;
-    }
+
     private bool CanShoot()
     {
         if (shootingBlock == null)
@@ -117,7 +119,6 @@ public class BlockShooter : MonoBehaviour
             return true;
         }
         BlockAnimation blockAnimation = shootingBlock.GetComponent<BlockAnimation>();
-        //Debug.Log(blockAnimation.IsArrived);
         return blockAnimation.IsArrived && blockAnimation.IsMerged;
     }
 }
