@@ -9,7 +9,7 @@ public class KeyInput : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Space) && transform.name.Equals("ShareData(Mine)"))
 		{
-			GetComponent<PhotonVariable>().HP *= 2;
+			GetComponent<PhotonVariable>().attackDamage *= 2;
 		}
 	}
 }
