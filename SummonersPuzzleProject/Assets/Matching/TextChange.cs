@@ -23,7 +23,7 @@ public class TextChange : MonoBehaviour {
 		else
 		{
 			//print("getHP = " + photonmanager.GetComponent<PhotonVariable>().getHP.ToString());
-			GetComponent<Text>().text = photonmanager.GetComponent<PhotonVariable>().HP.ToString();
+			GetComponent<Text>().text = photonmanager.GetComponent<PhotonVariable>().attackDamage.ToString();
 		}
 	}
 }

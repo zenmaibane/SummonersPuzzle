@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/**
+ * <summary>
+ * このスクリプトがアタッチされたゲームオブジェクトは、
+ * beingSceneSetに含まれるシーンにいる間は削除されない
+ * </summary>
+*/
+
 public class PhotonDelete : MonoBehaviour {
 
 	private HashSet<string> beingSceneSet;
@@ -14,14 +21,10 @@ public class PhotonDelete : MonoBehaviour {
 
 		beingSceneSet = new HashSet<string>();
 		beingSceneSet.Add("Matching");
-		beingSceneSet.Add("GameTest");
+		//beingSceneSet.Add("GameTest");
+		beingSceneSet.Add("Ingame");
 	}
 	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 	void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
 	{
 		Debug.Log(prevScene.name + "->" + nextScene.name);
