@@ -16,7 +16,8 @@ public class Timer : MonoBehaviour
     private bool isPlaying;
     private double countTime = 0;
     private GameObject blockArea;
-    private GameObject HPManager;
+    private GridInfo gridInfo;
+    private HPManager HPManager;
 
     [SerializeField] private Slider timeSlider;
 
@@ -33,8 +34,9 @@ public class Timer : MonoBehaviour
         timeSlider.maxValue = summonSpeedSec;
 
         blockArea = GameObject.Find("BlockArea");
-        HPManager = GameObject.Find("HPManager");
-        
+        HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();
+
+        gridInfo = blockArea.GetComponent<GridInfo>();
     }
 
     // Update is called once per frame
@@ -55,12 +57,11 @@ public class Timer : MonoBehaviour
     private void Summon(double deltaTime)
     {
         countTime += deltaTime;
-        // Debug.Log($"countTime: {countTime}");
+        
         var canSummon = (countTime - summonSpeedSec) >= float.Epsilon;
         if (canSummon)
         {
             // 最上部のモンスターを消してダメージを与える
-            GridInfo gridInfo = blockArea.GetComponent<GridInfo>();
             int totalRank = 0;
             for (int i = 0; i < gridInfo.monsterPos.GetLength(0); i++)
             {
@@ -71,8 +72,8 @@ public class Timer : MonoBehaviour
                     Destroy(monster);
                     monster = null;
                 }
+                HPManager.DamageRival(totalRank);
             }
-            HPManager.GetComponent<HPManager>().DamageRival(totalRank);
             countTime = 0;
         }
         timeSlider.value = (float)(summonSpeedSec - countTime);
