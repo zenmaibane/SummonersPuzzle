@@ -117,8 +117,8 @@ public class BlockShooter : MonoBehaviour
             return true;
         }
         BlockAnimation blockAnimation = shootingBlock.GetComponent<BlockAnimation>();
-        Debug.Log(blockAnimation.isArrived);
-        return blockAnimation.isArrived && blockAnimation.isMerged;
+        //Debug.Log(blockAnimation.IsArrived);
+        return blockAnimation.IsArrived && blockAnimation.IsMerged;
     }
 }
 

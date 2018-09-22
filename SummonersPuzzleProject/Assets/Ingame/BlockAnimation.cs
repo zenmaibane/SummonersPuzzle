@@ -11,13 +11,13 @@ public class BlockAnimation : MonoBehaviour {
 	private float moveSpeed = 0.05f;
 
 	private GridInfo gridInfo;   // 参照用
-	
-	//public bool arrived = false;
-	//private bool isMerged = false;
-	private bool deleteFlag = false; // 合体中で、移動が終わり次第削除すべきかどうか
 
-	public bool isArrived { get; private set; }  // 移動や結合が終わった状態かどうか
-	public bool isMerged { get; private set; }   // 合体処理が終わった状態かどうか
+	private bool isArrived = false;
+	private bool isMerged = false;
+	public bool IsArrived { get; private set; }  // 移動や結合が終わった状態かどうか
+	public bool IsMerged { get; private set; }   // 合体処理が終わった状態かどうか
+	
+	private bool deleteFlag = false; // 合体中で、移動が終わり次第削除すべきかどうか
 
 	void Start () {
 		gridInfo = transform.parent.GetComponent<GridInfo>();
@@ -60,13 +60,13 @@ public class BlockAnimation : MonoBehaviour {
 						// 合体先のブロックがまだ存在していた場合に実行
 						// （2つ以上の合体時は、1つ目の処理により合体先のブロックが移動している場合があるため）
 						gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<BlockImageManager>().ImageReload();
-						gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<BlockAnimation>().isArrived = false;
-						gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<BlockAnimation>().isMerged = false;
+						gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<BlockAnimation>().IsArrived = false;
+						gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<BlockAnimation>().IsMerged = false;
 					}
 					// 元々の位置にあったオブジェクトはnullにする
 					gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
 
-					// TODO: nullにした列だけisArrivedをfalseにしたほうが処理が軽くなりそう
+					// TODO: nullにした列だけIsArrivedをfalseにしたほうが処理が軽くなりそう
 					// (今は、すべてのブロックが常に上に詰めれるかを判定してしまっている。)
 
 					Destroy(this.gameObject);
@@ -80,12 +80,12 @@ public class BlockAnimation : MonoBehaviour {
 			// まだ上に落ちれるなら落ちて、そうでなければ周りと合体できるかチェック
 			DropCheck();
 
-			//print("nowPos = " + nowPos + "\tisArrived = " + isArrived);
+			//print("nowPos = " + nowPos + "\tIsArrived = " + IsArrived);
 
-			if (isArrived == true && isMerged == false)
+			if (IsArrived == true && IsMerged == false)
 			{
 				MergeCheck();
-				isMerged = true;
+				IsMerged = true;
 			}
 		}
 
@@ -112,7 +112,7 @@ public class BlockAnimation : MonoBehaviour {
 				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
 				//if (gridInfo.monsterPos[nowPos.x + x, nowPos.y] != null)
 				BlockData targetBlockData = gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<Block>().blockData;
-				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color) && gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().isArrived)
+				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color) && gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().IsArrived)
 				{
 					gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().targetPos = nowPos;
 					gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().Delete();
@@ -132,7 +132,7 @@ public class BlockAnimation : MonoBehaviour {
 				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
 				//if(gridInfo.monsterPos[nowPos.x, nowPos.y + y] != null)
 				BlockData targetBlockData = gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<Block>().blockData;
-				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color) && gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().isArrived)
+				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color) && gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().IsArrived)
 				{
 					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().targetPos = nowPos;
 					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().Delete();
@@ -163,14 +163,14 @@ public class BlockAnimation : MonoBehaviour {
 	{
 		if(nowPos.y - 1 < 0){
 			// 最上部到達
-			isArrived = true;
+			IsArrived = true;
 		}
 		else if(gridInfo.monsterPos[nowPos.x, nowPos.y - 1] != null){
 			// ブロック到達
-			isArrived = true;
+			IsArrived = true;
 		}
 		else{
-			isArrived = false;
+			IsArrived = false;
 			targetPos = new Vector2Int(nowPos.x, nowPos.y - 1);
 			gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
 			gridInfo.monsterPos[nowPos.x, nowPos.y - 1] = this.gameObject;
