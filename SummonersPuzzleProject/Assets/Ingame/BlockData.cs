@@ -11,7 +11,7 @@ using UnityEngine;
 public class BlockData
 {
     private int rank;
-    public int Rank { get; private set; }
+    public int Rank { get; set; }
 
     private BlockColor color;
 

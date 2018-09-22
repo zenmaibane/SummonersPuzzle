@@ -42,7 +42,7 @@ public class BlockAnimation : MonoBehaviour {
 			if (targetDir.x != 0) targetDir.x /= Mathf.Abs(targetDir.x);
 			if (targetDir.y != 0) targetDir.y /= Mathf.Abs(targetDir.y);
 			targetDir.y *= -1;     // 要素番号がマイナス　→　座標値としてはプラス方向
-								   //print("targetDir : " + targetDir);
+			//print("targetDir : " + targetDir);
 
 			transform.position = new Vector3(transform.position.x + (targetDir.x * moveSpeed), transform.position.y + (targetDir.y * moveSpeed));
 
@@ -51,7 +51,21 @@ public class BlockAnimation : MonoBehaviour {
 			{
 				if (deleteFlag)
 				{
+					//gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<Block>().blockData.Rank += gridInfo.monsterPos[nowPos.x, nowPos.y].GetComponent<Block>().blockData.Rank;
+					if (gridInfo.monsterPos[targetPos.x, targetPos.y] != null)
+					{
+						// 合体先のブロックがまだ存在していた場合に実行
+						// （2つ以上の合体時は、1つ目の処理により合体先のブロックが移動している場合があるため）
+						gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<BlockImageManager>().ImageReload();
+						gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<BlockAnimation>().arrived = false;
+						gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<BlockAnimation>().merged = false;
+					}
+					// 元々の位置にあったオブジェクトはnullにする
 					gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
+
+					// TODO: nullにした列だけarrivedをfalseにしたほうが処理が軽くなりそう
+					// (今は、すべてのブロックが常に上に詰めれるかを判定してしまっている。)
+
 					Destroy(this.gameObject);
 				}
 				nowPos = targetPos;
@@ -62,6 +76,7 @@ public class BlockAnimation : MonoBehaviour {
 			// 目標地点に到着しているときの処理
 			// まだ上に落ちれるなら落ちて、そうでなければ周りと合体できるかチェック
 			DropCheck();
+
 			//print("nowPos = " + nowPos + "\tarrived = " + arrived);
 
 			if (arrived == true && merged == false)
@@ -84,6 +99,7 @@ public class BlockAnimation : MonoBehaviour {
 	// 周りと合体できるかチェックする(冗長な書き方のため、修正可能)
 	private void MergeCheck()
 	{
+		int addRank = 0;
 		// 4方向のチェック
 		for (int x = -1; x <= 1; x += 2)
 		{
@@ -93,10 +109,11 @@ public class BlockAnimation : MonoBehaviour {
 				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
 				//if (gridInfo.monsterPos[nowPos.x + x, nowPos.y] != null)
 				BlockData targetBlockData = gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<Block>().blockData;
-				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color))
+				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color) && gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().arrived)
 				{
 					gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().targetPos = nowPos;
 					gridInfo.monsterPos[nowPos.x + x, nowPos.y].GetComponent<BlockAnimation>().Delete();
+					addRank += 1;
 				}
 			}
 			catch
@@ -106,21 +123,23 @@ public class BlockAnimation : MonoBehaviour {
 		}
 		for (int y = -1; y <= 1; y += 2)
 		{
-			try{
+			try
+			{
 				//print("checked monster info : " + gridInfo.monsterPos[nowPos.x, nowPos.y + y]);
 				// 指定したマスに合体できるブロックがあるかどうかの判定(今は全部合体するようになっています)
 				//if(gridInfo.monsterPos[nowPos.x, nowPos.y + y] != null)
 				BlockData targetBlockData = gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<Block>().blockData;
-				print(targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color));
-				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color))
+				if (targetBlockData.Rank == GetComponent<Block>().blockData.Rank && targetBlockData.Color.Equals(GetComponent<Block>().blockData.Color) && gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().arrived)
 				{
 					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().targetPos = nowPos;
 					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().Delete();
+					addRank += 1;
 				}
 			}catch{
 				// 枠をはみ出て探索することを防ぐためのtry-catch
 			}
 		}
+		GetComponent<Block>().blockData.Rank += addRank;
 	}
 
 	// ブロックの初期位置を指定
