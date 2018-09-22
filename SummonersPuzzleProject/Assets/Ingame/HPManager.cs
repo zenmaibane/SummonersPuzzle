@@ -17,9 +17,9 @@ public class HPManager : MonoBehaviour
 	private int rivalMaxHP;
 	[SerializeField] private int myHP;
 	[SerializeField] private int rivalHP;
-
-	private Text myHPText;
-	private Text rivalHPText;
+	
+	private HPChanger myHPChanger;
+	private HPChanger rivalHPChanger;
 
 	private int delayCounter; // 被ダメージメソッドがPhoton側から連続で2回実行されてしまったので、それを防ぐカウンター
 
@@ -30,12 +30,11 @@ public class HPManager : MonoBehaviour
 		myHP = myMaxHP;
 		rivalHP = rivalMaxHP;
 
-		myHPText = GameObject.Find("Canvas/TextMyHP").GetComponent<Text>();
-		rivalHPText = GameObject.Find("Canvas/TextRivalHP").GetComponent<Text>();
-
-		print("myHPText : " + myHPText);
-		myHPText.text = GenerateHPformat(myHP, myMaxHP);
-		rivalHPText.text = GenerateHPformat(rivalHP, rivalMaxHP);
+		myHPChanger = GameObject.Find("Canvas/MyHP").GetComponent<HPChanger>();
+		rivalHPChanger = GameObject.Find("Canvas/RivalHP").GetComponent<HPChanger>();
+		
+		myHPChanger.SetMaxHP(myMaxHP);
+		rivalHPChanger.SetMaxHP(rivalMaxHP);
 	}
 
 	void Update()
@@ -63,7 +62,7 @@ public class HPManager : MonoBehaviour
 			Debug.LogWarning("マッチングされていません。\nなお、スペースキーを押すと、被ダメージテストができます。");
 		}
 		// TODO: 体力ゲージへの反映(テキストは実装済み)
-		rivalHPText.text = GenerateHPformat(rivalHP, rivalMaxHP);
+		rivalHPChanger.SetNowHP(rivalHP);
 	}
 
 	public void BeHurt(int damage)
@@ -77,7 +76,7 @@ public class HPManager : MonoBehaviour
 		myHP -= damage;
 
 		//TODO: 体力ゲージへの反映、ゲームオーバー判定、被ダメージエフェクトの処理
-		myHPText.text = GenerateHPformat(myHP, myMaxHP);
+		myHPChanger.SetNowHP(myHP);
 
 	}
 
