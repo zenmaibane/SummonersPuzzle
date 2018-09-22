@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockAnimation : MonoBehaviour {
+public class BlockAnimation : MonoBehaviour
+{
 
 	// 今のポジション（実座標ではなく、グリッド上で左上を0，0とした時の、何行何列目かを示す。）
 	public Vector2Int nowPos;
@@ -12,14 +13,15 @@ public class BlockAnimation : MonoBehaviour {
 
 	private GridInfo gridInfo;   // 参照用
 
-	private bool isArrived = false;
-	private bool isMerged = false;
+	//[SerializeField] private bool isArrived = false;
+	//[SerializeField] private bool isMerged = false;
 	public bool IsArrived { get; private set; }  // 移動や結合が終わった状態かどうか
 	public bool IsMerged { get; private set; }   // 合体処理が終わった状態かどうか
-	
+
 	private bool deleteFlag = false; // 合体中で、移動が終わり次第削除すべきかどうか
 
-	void Start () {
+	void Start()
+	{
 		gridInfo = transform.parent.GetComponent<GridInfo>();
 
 		// デバッグ用
@@ -80,7 +82,7 @@ public class BlockAnimation : MonoBehaviour {
 			// まだ上に落ちれるなら落ちて、そうでなければ周りと合体できるかチェック
 			DropCheck();
 
-			//print("nowPos = " + nowPos + "\tIsArrived = " + IsArrived);
+			//print("nowPos = " + nowPos + "\tIsArrived = " + IsArrived + "\tIsMerged = " + IsMerged);
 
 			if (IsArrived == true && IsMerged == false)
 			{
@@ -88,9 +90,6 @@ public class BlockAnimation : MonoBehaviour {
 				IsMerged = true;
 			}
 		}
-
-		
-
 	}
 
 	// 削除するときに呼び出す
@@ -138,7 +137,9 @@ public class BlockAnimation : MonoBehaviour {
 					gridInfo.monsterPos[nowPos.x, nowPos.y + y].GetComponent<BlockAnimation>().Delete();
 					addRank += 1;
 				}
-			}catch{
+			}
+			catch
+			{
 				// 枠をはみ出て探索することを防ぐためのtry-catch
 			}
 		}
@@ -148,7 +149,8 @@ public class BlockAnimation : MonoBehaviour {
 	// ブロックの初期位置を指定
 	public void SetStartPos(int x, int y)
 	{
-		if(gridInfo == null){
+		if (gridInfo == null)
+		{
 			gridInfo = GameObject.Find("BlockArea").GetComponent<GridInfo>();
 		}
 		//print("gridInfo : " + gridInfo);
@@ -161,16 +163,20 @@ public class BlockAnimation : MonoBehaviour {
 	// 自分より上にブロックが無ければ上に詰める
 	private void DropCheck()
 	{
-		if(nowPos.y - 1 < 0){
+		if (nowPos.y - 1 < 0)
+		{
 			// 最上部到達
 			IsArrived = true;
 		}
-		else if(gridInfo.monsterPos[nowPos.x, nowPos.y - 1] != null){
+		else if (gridInfo.monsterPos[nowPos.x, nowPos.y - 1] != null)
+		{
 			// ブロック到達
 			IsArrived = true;
 		}
-		else{
+		else
+		{
 			IsArrived = false;
+			IsMerged = false;
 			targetPos = new Vector2Int(nowPos.x, nowPos.y - 1);
 			gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
 			gridInfo.monsterPos[nowPos.x, nowPos.y - 1] = this.gameObject;
@@ -190,7 +196,9 @@ public class BlockAnimation : MonoBehaviour {
 				if (intArr[i, j] != null)
 				{
 					str = str + intArr[i, j].transform.name;
-				}else{
+				}
+				else
+				{
 					str = str + "\t";
 				}
 				str = str + ","; //列の区切り文字
