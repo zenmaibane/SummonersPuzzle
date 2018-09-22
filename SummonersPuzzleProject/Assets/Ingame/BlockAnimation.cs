@@ -196,5 +196,4 @@ public class BlockAnimation : MonoBehaviour {
 		}
 		return str;
 	}
-
 }

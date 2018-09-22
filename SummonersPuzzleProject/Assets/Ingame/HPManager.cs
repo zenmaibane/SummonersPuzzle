@@ -9,15 +9,27 @@ using UnityEngine;
  * </summary>
 */
 
-public class HPManager : MonoBehaviour {
+public class HPManager : MonoBehaviour
+{
+    private GameObject rivalChara;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void DamageRival(int totalRank)
+    {
+        //TODO: 実際のダメージ計算式は考える必要がある(ブーストゲージ考慮含め)
+        int resultDamage = totalRank * 10;
+
+		// ライバルにダメージを与える処理
+    }
 }
