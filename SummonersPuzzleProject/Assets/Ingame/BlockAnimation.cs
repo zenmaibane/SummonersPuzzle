@@ -70,10 +70,10 @@ public class BlockAnimation : MonoBehaviour
             DropCheck();
             //print("nowPos = " + nowPos + "\tarrived = " + arrived);
 
-            if (isArrived == true && isMerged == false)
+            if (IsArrived == true && IsMerged == false)
             {
                 MergeCheck();
-                isMerged = true;
+                IsMerged = true;
             }
         }
 
@@ -147,16 +147,16 @@ public class BlockAnimation : MonoBehaviour
         if (nowPos.y - 1 < 0)
         {
             // 最上部到達
-            isArrived = true;
+            IsArrived = true;
         }
         else if (gridInfo.monsterPos[nowPos.x, nowPos.y - 1] != null)
         {
             // ブロック到達
-            isArrived = true;
+            IsArrived = true;
         }
         else
         {
-            isArrived = false;
+            IsArrived = false;
             targetPos = new Vector2Int(nowPos.x, nowPos.y - 1);
             gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
             gridInfo.monsterPos[nowPos.x, nowPos.y - 1] = this.gameObject;

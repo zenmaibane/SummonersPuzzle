@@ -55,7 +55,7 @@ public class Timer : MonoBehaviour
     private void Summon(double deltaTime)
     {
         countTime += deltaTime;
-        // Debug.Log($"countTime: {countTime}");
+
         var canSummon = (countTime - summonSpeedSec) >= float.Epsilon;
         if (canSummon)
         {

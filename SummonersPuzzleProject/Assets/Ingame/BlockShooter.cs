@@ -24,6 +24,8 @@ public class BlockShooter : MonoBehaviour
     private GameObject blockArea;
     private GameObject blockPrefab;
     private GameObject newBlock;
+    private GameObject shootingBlock;
+
 
     void Start()
     {
@@ -35,6 +37,7 @@ public class BlockShooter : MonoBehaviour
         cols.Add(col5);
         blockArea = GameObject.Find("BlockArea");
         blockPrefab = (GameObject)Resources.Load("Block");
+        shootingBlock = null;
     }
 
     void Update()
@@ -50,14 +53,18 @@ public class BlockShooter : MonoBehaviour
                 if (rect.Contains(worldPoint))
                 {
                     var neighborCol = hit.collider.gameObject;
-
-                    if (newBlock == null)
+                    // Debug.Log(CanShoot());
+                    Debug.Log(shootingBlock);
+                    if (newBlock == null && CanShoot())
                     {
                         // 掴んだ時
                         newBlock = GenerateBlockGameObject(worldPoint);
+                        shootingBlock = newBlock;
                     }
-
-                    SetBlockPosition(neighborCol);
+                    if (newBlock != null)
+                    {
+                        SetBlockPosition(neighborCol);
+                    }
                 }
             }
         }
@@ -93,8 +100,8 @@ public class BlockShooter : MonoBehaviour
                 throw new ArgumentException("None");
         }
         newBlock.transform.position = pos;
-		newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
-	}
+        newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
+    }
 
     private GameObject GenerateBlockGameObject(Vector2 worldPoint)
     {
@@ -102,6 +109,17 @@ public class BlockShooter : MonoBehaviour
         go.transform.parent = blockArea.transform;
         return go;
     }
+    private bool CanShoot()
+    {
+        if (shootingBlock == null)
+        {
+            return true;
+        }
+        BlockAnimation blockAnimation = shootingBlock.GetComponent<BlockAnimation>();
+        Debug.Log(blockAnimation.IsArrived);
+        return blockAnimation.IsArrived && blockAnimation.IsMerged;
+    }
 }
+
 
 
