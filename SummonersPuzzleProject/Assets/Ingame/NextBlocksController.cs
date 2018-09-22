@@ -41,15 +41,14 @@ public class NextBlocksController : MonoBehaviour
     }
 
 
-    // NextBlockを最大限まで生成&規定位置移動
+    // NextBlockを生成&規定位置移動
     private void UpdateNextBlock()
     {
         var block = GenerateBlockGameObject();
         block.GetComponent<SpriteRenderer>().sortingOrder = 1;
         block.GetComponent<BlockImageManager>().ImageReload();
-        Debug.Log(block.GetComponent<Block>().blockData);
 
-        // i=0 はDestroyするObjectなのでi=1にする
+        // i=0 はShoot対象なのでi=1開始
         for (var i = 1; i < this.transform.childCount; i++)
         {
             var go = this.transform.GetChild(i).gameObject;
@@ -58,15 +57,10 @@ public class NextBlocksController : MonoBehaviour
         }
     }
 
-    public GameObject SendNextBlock()
+    public void SetNextBlockInShootingArea()
     {
         var nextBlock = this.transform.GetChild(0).gameObject;
-        var nextBlockClone = (GameObject)Object.Instantiate(nextBlock);
-
-        //親子関係の問題でDestoy前にUpdateNextBlockを呼ぶ
         UpdateNextBlock();
-        Destroy(nextBlock);
-
-        return nextBlockClone;
+        nextBlock.transform.parent = GameObject.Find("ShootingArea").transform;
     }
 }

@@ -26,6 +26,9 @@ public class BlockShooter : MonoBehaviour
     private GameObject newBlock;
     private GameObject shootingBlock;
 
+    private GameObject shootingArea;
+
+
     private NextBlocksController nextBlocksController;
 
 
@@ -41,6 +44,7 @@ public class BlockShooter : MonoBehaviour
         blockPrefab = (GameObject)Resources.Load("Block");
         shootingBlock = null;
         nextBlocksController = GameObject.Find("NextBlocksArea").GetComponent<NextBlocksController>();
+        shootingArea = GameObject.Find("ShootingArea");
     }
 
     void Update()
@@ -59,7 +63,8 @@ public class BlockShooter : MonoBehaviour
                     if (newBlock == null && CanShoot())
                     {
                         // 掴んだ時
-                        newBlock = nextBlocksController.SendNextBlock();
+                        nextBlocksController.SetNextBlockInShootingArea();
+                        newBlock = shootingArea.transform.GetChild(0).gameObject;
                         newBlock.transform.parent = blockArea.transform;
                         shootingBlock = newBlock;
                     }
