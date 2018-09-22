@@ -53,8 +53,6 @@ public class BlockShooter : MonoBehaviour
                 if (rect.Contains(worldPoint))
                 {
                     var neighborCol = hit.collider.gameObject;
-                    // Debug.Log(CanShoot());
-                    // Debug.Log(shootingBlock);
                     if (newBlock == null && CanShoot())
                     {
                         // 掴んだ時
