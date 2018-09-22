@@ -19,8 +19,10 @@ public class BlockGenerator : MonoBehaviour
     private Queue<int> debugRankList;
     private int debugCounter;
 
+    public static readonly int BlockMaxCount = 4;
+
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         Init();
 
@@ -32,10 +34,10 @@ public class BlockGenerator : MonoBehaviour
     private void Init()
     {
         nextBlocks = new Queue<BlockData>();
-        nextBlocks.Enqueue(GenerateBlockData());
-        nextBlocks.Enqueue(GenerateBlockData());
-		nextBlocks.Enqueue(GenerateBlockData());
-        nextBlocks.Enqueue(GenerateBlockData());
+        for (var i = 0; i < BlockMaxCount; i++)
+        {
+            nextBlocks.Enqueue(GenerateBlockData());
+        }
     }
 
     public BlockData GetNextBlock()

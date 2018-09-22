@@ -22,4 +22,9 @@ public class BlockData
         this.Rank = rank;
         this.Color = color;
     }
+
+    public override string ToString()
+    {
+        return $"rank: {Rank}, Color:{Color}";
+    }
 }

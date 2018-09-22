@@ -26,6 +26,8 @@ public class BlockShooter : MonoBehaviour
     private GameObject newBlock;
     private GameObject shootingBlock;
 
+    private NextBlocksController nextBlocksController;
+
 
     void Start()
     {
@@ -38,6 +40,7 @@ public class BlockShooter : MonoBehaviour
         blockArea = GameObject.Find("BlockArea");
         blockPrefab = (GameObject)Resources.Load("Block");
         shootingBlock = null;
+        nextBlocksController = GameObject.Find("NextBlocksArea").GetComponent<NextBlocksController>();
     }
 
     void Update()
@@ -56,7 +59,8 @@ public class BlockShooter : MonoBehaviour
                     if (newBlock == null && CanShoot())
                     {
                         // 掴んだ時
-                        newBlock = GenerateBlockGameObject(worldPoint);
+                        newBlock = nextBlocksController.SendNextBlock();
+                        newBlock.transform.parent = blockArea.transform;
                         shootingBlock = newBlock;
                     }
                     if (newBlock != null)
@@ -102,12 +106,7 @@ public class BlockShooter : MonoBehaviour
 		newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
 		newBlock.GetComponent<BlockImageManager>().ImageReload();
 	}
-    private GameObject GenerateBlockGameObject(Vector2 worldPoint)
-    {
-        var go = Instantiate(blockPrefab, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);
-        go.transform.parent = blockArea.transform;
-        return go;
-    }
+
     private bool CanShoot()
     {
         if (shootingBlock == null)
@@ -115,7 +114,6 @@ public class BlockShooter : MonoBehaviour
             return true;
         }
         BlockAnimation blockAnimation = shootingBlock.GetComponent<BlockAnimation>();
-        //Debug.Log(blockAnimation.IsArrived);
         return blockAnimation.IsArrived && blockAnimation.IsMerged;
     }
 }

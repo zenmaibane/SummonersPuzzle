@@ -18,8 +18,8 @@ public class Block : MonoBehaviour
     {
         var blockGenerator = GameObject.Find("BlockStarter").GetComponent<BlockGenerator>();
         blockData = blockGenerator.GetNextBlock();
-        Debug.Log(blockData.Color);
-        Debug.Log(blockData.Rank);
+        // Debug.Log(blockData.Color);
+        // Debug.Log(blockData.Rank);
     }
 
     // Update is called once per frame
