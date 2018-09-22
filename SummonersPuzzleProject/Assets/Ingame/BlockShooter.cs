@@ -100,9 +100,10 @@ public class BlockShooter : MonoBehaviour
                 throw new ArgumentException("None");
         }
         newBlock.transform.position = pos;
-        newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
-    }
-
+	     	newBlock.GetComponent<SpriteRenderer>().sortingOrder = 1;
+		    newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
+		    newBlock.GetComponent<BlockImageManager>().ImageReload();
+	}
     private GameObject GenerateBlockGameObject(Vector2 worldPoint)
     {
         var go = Instantiate(blockPrefab, new Vector3(worldPoint.x, worldPoint.y, 0), Quaternion.identity);

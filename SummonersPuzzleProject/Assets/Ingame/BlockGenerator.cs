@@ -16,12 +16,19 @@ public class BlockGenerator : MonoBehaviour
     static readonly System.Random random = new System.Random();
     public Queue<BlockData> nextBlocks { get; private set; }
 
+	private Queue<int> debugRankList;
+	private int debugCounter;
+
     // Use this for initialization
     void Start()
     {
         nextBlocks = new Queue<BlockData>();
         nextBlocks.Enqueue(GenerateBlockData());
         nextBlocks.Enqueue(GenerateBlockData());
+
+		debugRankList = new Queue<int>();
+		debugRankList.Enqueue(1);
+		debugCounter = 0;
     }
 
     public BlockData GetNextBlock()
@@ -33,19 +40,44 @@ public class BlockGenerator : MonoBehaviour
 
     private BlockData GenerateBlockData()
     {
-        // TODO: キャラ性能によって生成するランクの範囲を変える
-        int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 5.0f));
+		// TODO: キャラ性能によって生成するランクの範囲を変える
+		//int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 5.0f));
+		//int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 2.0f));
+		int rank = (debugCounter%2)+1;  // 1と2を交互に出す
+		debugCounter++;
 
-        // TODO: キャラが使える色に応じたものを取得する(現状は3色からランダム)
-        BlockColor[] blockColors = { BlockColor.Red, BlockColor.Yellow, BlockColor.Green };
+		// TODO: キャラが使える色に応じたものを取得する(現状は3色からランダム)
+		//BlockColor[] blockColors = { BlockColor.Red, BlockColor.Yellow, BlockColor.Green };
+		BlockColor[] blockColors = { BlockColor.Red };
 
-        int randomColor = (int)Math.Round(UnityEngine.Random.Range(0.0f, blockColors.Length-1));
+		int randomColor = (int)Math.Round(UnityEngine.Random.Range(0.0f, blockColors.Length-1));
         BlockData blockData = new BlockData(rank, blockColors[randomColor]);
 
         return blockData;
     }
+	/*
+	private Queue<int> GenerateRankList()
+	{
+		
+	}
+	*/
+	private BlockData DebugGenerateBlockData()
+	{
+		// TODO: キャラ性能によって生成するランクの範囲を変える
+		//int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 5.0f));
+		int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 2.0f));
 
-    private static BlockColor RandomEnumValue()
+		// TODO: キャラが使える色に応じたものを取得する(現状は3色からランダム)
+		//BlockColor[] blockColors = { BlockColor.Red, BlockColor.Yellow, BlockColor.Green };
+		BlockColor[] blockColors = { BlockColor.Red };
+
+		int randomColor = (int)Math.Round(UnityEngine.Random.Range(0.0f, blockColors.Length - 1));
+		BlockData blockData = new BlockData(rank, blockColors[randomColor]);
+
+		return blockData;
+	}
+
+	private static BlockColor RandomEnumValue()
     {
         return Enum
             .GetValues(typeof(BlockColor))
