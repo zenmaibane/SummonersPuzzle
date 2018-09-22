@@ -13,8 +13,8 @@ public class BlockAnimation : MonoBehaviour
 
 	private GridInfo gridInfo;   // 参照用
 
-	private bool isArrived = false;
-	private bool isMerged = false;
+	//[SerializeField] private bool isArrived = false;
+	//[SerializeField] private bool isMerged = false;
 	public bool IsArrived { get; private set; }  // 移動や結合が終わった状態かどうか
 	public bool IsMerged { get; private set; }   // 合体処理が終わった状態かどうか
 
@@ -82,7 +82,7 @@ public class BlockAnimation : MonoBehaviour
 			// まだ上に落ちれるなら落ちて、そうでなければ周りと合体できるかチェック
 			DropCheck();
 
-			//print("nowPos = " + nowPos + "\tIsArrived = " + IsArrived);
+			//print("nowPos = " + nowPos + "\tIsArrived = " + IsArrived + "\tIsMerged = " + IsMerged);
 
 			if (IsArrived == true && IsMerged == false)
 			{
@@ -167,17 +167,16 @@ public class BlockAnimation : MonoBehaviour
 		{
 			// 最上部到達
 			IsArrived = true;
-			IsMerged = false;
 		}
 		else if (gridInfo.monsterPos[nowPos.x, nowPos.y - 1] != null)
 		{
 			// ブロック到達
 			IsArrived = true;
-			IsMerged = false;
 		}
 		else
 		{
 			IsArrived = false;
+			IsMerged = false;
 			targetPos = new Vector2Int(nowPos.x, nowPos.y - 1);
 			gridInfo.monsterPos[nowPos.x, nowPos.y] = null;
 			gridInfo.monsterPos[nowPos.x, nowPos.y - 1] = this.gameObject;
