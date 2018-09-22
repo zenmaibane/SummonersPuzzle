@@ -34,6 +34,11 @@ public class HPChanger : MonoBehaviour {
 	{
 		this.nowHP = HP;
 
+		if(HPText == null)
+		{
+			HPText = transform.Find("Text").GetComponent<Text>();
+		}
+
 		HPText.text = GenerateHPformat();
 	}
 
