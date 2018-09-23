@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 /**
@@ -19,7 +20,7 @@ public class Timer : MonoBehaviour
     private GridInfo gridInfo;
     private HPManager HPManager;
 
-    [SerializeField] private Slider timeSlider;
+    [SerializeField] private TextMeshProUGUI summonTimeText;
 
     void Start()
     {
@@ -31,7 +32,6 @@ public class Timer : MonoBehaviour
 
         //これはデバッグ用
         StartGameTimer();
-        timeSlider.maxValue = summonSpeedSec;
 
         blockArea = GameObject.Find("BlockArea");
         HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();
@@ -57,7 +57,7 @@ public class Timer : MonoBehaviour
     private void Summon(double deltaTime)
     {
         countTime += deltaTime;
-        
+
         var canSummon = (countTime - summonSpeedSec) >= float.Epsilon;
         if (canSummon)
         {
@@ -72,11 +72,11 @@ public class Timer : MonoBehaviour
                     Destroy(monster);
                     monster = null;
                 }
-			}
-			HPManager.DamageRival(totalRank);
-			countTime = 0;
+            }
+            HPManager.DamageRival(totalRank);
+            countTime = 0;
         }
-        timeSlider.value = (float)(summonSpeedSec - countTime);
+        summonTimeText.SetText(string.Format("{0:0.0}", (summonSpeedSec - countTime)));
     }
 
     public void StartGameTimer()
