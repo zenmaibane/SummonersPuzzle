@@ -35,9 +35,6 @@ public class HPManager : MonoBehaviour
 
         myHPChanger.SetMaxHP(myMaxHP);
         rivalHPChanger.SetMaxHP(rivalMaxHP);
-
-        // デバッグ用 
-        GameStateManager.Instantiate(GameObject.Find("GameStateManager"));
     }
 
     void Update()

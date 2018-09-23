@@ -9,6 +9,7 @@ public class IngameSceneController : MonoBehaviour
     {
         //デバッグ用．本来はいらない
         SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
+        GameStateManager.Instantiate(GameObject.Find("GameStateManager"));
     }
 
     public void LoadResultScene()
