@@ -9,25 +9,21 @@ public class CharaSelectSceneController : MonoBehaviour
     [SerializeField] private Button backButton;
     [SerializeField] private Button selectButton;
 
-    private SelfSceneManager sceneManager;
-
-
     void Start()
     {
         backButton?.onClick.AddListener(OnClickBackButton);
         selectButton?.onClick.AddListener(OnClickSelectButton);
 
         //リリース時には消す
-        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));        
-        
-        sceneManager = SelfSceneManager.Instance;
+        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
+        GameStateManager.Instantiate(GameObject.Find("GameManager"));          
     }
 
     void OnClickBackButton(){
-        sceneManager.LoadHomeScene();
+        SelfSceneManager.Instance.LoadHomeScene();
     }
 
 	void OnClickSelectButton(){
-        sceneManager.LoadBattleScene();
+        SelfSceneManager.Instance.LoadBattleScene();
 	}
 }

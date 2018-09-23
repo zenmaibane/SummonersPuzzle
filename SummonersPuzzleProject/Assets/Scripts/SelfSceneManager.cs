@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SelfSceneManager : MonoBehaviour
 {
-
     private static SelfSceneManager instance;
     public static SelfSceneManager Instance
     {
@@ -19,8 +18,12 @@ public class SelfSceneManager : MonoBehaviour
             return instance;
         }
     }
+
     public static void Instantiate(GameObject go)
     {
+        // 最初のシーンからやらなくてもいいようなデバッグ用関数
+        GenerateDebugInstance(go);
+
         instance = go.GetComponent<SelfSceneManager>() ?? go.AddComponent<SelfSceneManager>();
         if (UnityEngine.Application.isPlaying)
         {
@@ -35,14 +38,14 @@ public class SelfSceneManager : MonoBehaviour
 
     public void LoadVsScene()
     {
-        //2人プレイであることの設定の記述が必要
+        GameStateManager.Instance.PlayMode = PlayMode.VS;
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("CharaSelect");
     }
 
     public void LoadSoloScene()
     {
-        //1人プレイであることの設定の記述が必要
+        GameStateManager.Instance.PlayMode = PlayMode.Solo;
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("CharaSelect");
     }
@@ -56,5 +59,21 @@ public class SelfSceneManager : MonoBehaviour
     public void LoadBattleScene()
     {
         Debug.Log("バトルシーンを読み込んだよ");
+    }
+
+    public void LoadResultScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
+    }
+
+    private static void GenerateDebugInstance(GameObject sceneManager)
+    {
+        if (sceneManager == null && instance == null)
+        {
+            Debug.Log("Debug用のインスタンスを作成しました");
+            var prefab = (GameObject)Resources.Load("SceneManager");
+            var gameobject = Instantiate(prefab, Vector2.zero, Quaternion.identity);
+            instance = gameobject.GetComponent<SelfSceneManager>();
+        }
     }
 }

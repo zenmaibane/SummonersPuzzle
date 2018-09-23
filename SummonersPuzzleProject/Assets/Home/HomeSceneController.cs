@@ -10,28 +10,26 @@ public class HomeSceneController : MonoBehaviour
     [SerializeField] private Button soloButton;
     [SerializeField] private Button howToButton;
 
-    private SelfSceneManager sceneManager;
-
-
     void Start()
     {
         vsButton?.onClick.AddListener(OnClickVsButton);
         soloButton?.onClick.AddListener(OnClickSoloButton);
         howToButton?.onClick.AddListener(OnClickHowToButton);
+        
         SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
-        sceneManager = SelfSceneManager.Instance;
+        GameStateManager.Instantiate(GameObject.Find("GameStateManager"));
     }
 
     void OnClickVsButton(){
-        sceneManager.LoadVsScene();
+        SelfSceneManager.Instance.LoadVsScene();
     }
 
 	void OnClickSoloButton(){
-        sceneManager.LoadSoloScene();
+        SelfSceneManager.Instance.LoadSoloScene();
 	}
 
 	void OnClickHowToButton(){
-        sceneManager.LoadHowToScene();
+        SelfSceneManager.Instance.LoadHowToScene();
     }
 
 }
