@@ -15,7 +15,9 @@ public class HomeSceneController : MonoBehaviour
         vsButton?.onClick.AddListener(OnClickVsButton);
         soloButton?.onClick.AddListener(OnClickSoloButton);
         howToButton?.onClick.AddListener(OnClickHowToButton);
+        
         SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
+        GameStateManager.Instantiate(GameObject.Find("GameStateManager"));
     }
 
     void OnClickVsButton(){
