@@ -15,7 +15,8 @@ public class CharaSelectSceneController : MonoBehaviour
         selectButton?.onClick.AddListener(OnClickSelectButton);
 
         //リリース時には消す
-        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));           
+        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
+        GameStateManager.Instantiate(GameObject.Find("GameManager"));          
     }
 
     void OnClickBackButton(){
