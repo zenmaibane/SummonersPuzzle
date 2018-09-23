@@ -34,14 +34,15 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    private static void GenerateDebugInstance(GameObject sceneManager)
+    private static void GenerateDebugInstance(GameObject gameStateManager)
     {
-        if (sceneManager == null)
+        if (gameStateManager == null && instance == null)
         {
             Debug.Log("Debug用のインスタンスを作成しました");
-            var prefab = (GameObject)Resources.Load("SceneManager");
+            var prefab = (GameObject)Resources.Load("GameStateManager");
             var gameobject = Instantiate(prefab, Vector2.zero, Quaternion.identity);
             instance = gameobject.GetComponent<GameStateManager>();
+            Debug.Log(instance);
         }
     }
 }

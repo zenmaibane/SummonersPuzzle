@@ -35,6 +35,9 @@ public class HPManager : MonoBehaviour
 
         myHPChanger.SetMaxHP(myMaxHP);
         rivalHPChanger.SetMaxHP(rivalMaxHP);
+
+        // デバッグ用 
+        GameStateManager.Instantiate(GameObject.Find("GameStateManager"));
     }
 
     void Update()
@@ -95,23 +98,29 @@ public class HPManager : MonoBehaviour
     {
         return myHP <= 0 || rivalHP <= 0;
     }
+
     private void CompleteBattle()
     {
         bool lose = myHP <= 0;
         bool win = rivalHP <= float.Epsilon;
+
         if (win && lose)
         {
             GameStateManager.Instance.BattleResult = BattleResult.Draw;
+            Debug.Log("引き分け");
         }
         else if (win)
         {
             GameStateManager.Instance.BattleResult = BattleResult.Win;
+            Debug.Log("勝ち");
         }
         else
         {
-            GameStateManager.Instance.BattleResult = BattleResult.Lose;			
+            GameStateManager.Instance.BattleResult = BattleResult.Lose;
+            Debug.Log("負け");
         }
-        IngameSceneController ingameSceneController = 
+
+        IngameSceneController ingameSceneController =
             GameObject.Find("IngameSceneController").GetComponent<IngameSceneController>();
         ingameSceneController.LoadResultScene();
     }
