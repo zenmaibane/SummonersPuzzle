@@ -9,52 +9,55 @@ using UnityEngine.UI;
  * </summary>
 */
 
-public class HPChanger : MonoBehaviour {
+public class HPChanger : MonoBehaviour
+{
 
-	private int nowHP;
-	private int maxHP;
+    private int nowHP;
+    private int maxHP;
 
-	private Text HPText;
-	private Image HPGauge;
+    private Text HPText;
+    private Image HPGauge;
 
-	void Start () {
-		HPText = transform.Find("Text").GetComponent<Text>();
-		HPGauge = transform.Find("Gauge").GetComponent<Image>();
-	}
-	
-	void Update () {
-		float diff = HPGauge.fillAmount - GetPercentage();
-		if (Mathf.Abs(diff) >= 0.01f)
-		{
-			HPGauge.fillAmount -= diff / 50;
-		}
-	}
+    void Start()
+    {
+        HPText = transform.Find("Text").GetComponent<Text>();
+        HPGauge = transform.Find("Gauge").GetComponent<Image>();
+    }
 
-	public void SetNowHP(int HP)
-	{
-		this.nowHP = HP;
+    void Update()
+    {
+        float diff = HPGauge.fillAmount - GetPercentage();
+        if (Mathf.Abs(diff) >= 0.01f)
+        {
+            HPGauge.fillAmount -= diff / 50;
+        }
+    }
 
-		if(HPText == null)
-		{
-			HPText = transform.Find("Text").GetComponent<Text>();
-		}
+    public void SetNowHP(int HP)
+    {
+        this.nowHP = HP;
 
-		HPText.text = GenerateHPformat();
-	}
+        if (HPText == null)
+        {
+            HPText = transform.Find("Text").GetComponent<Text>();
+        }
 
-	public void SetMaxHP(int maxHP)
-	{
-		this.maxHP = maxHP;
-		SetNowHP(maxHP);
-	}
+        HPText.text = GenerateHPformat();
+    }
 
-	private float GetPercentage()
-	{
-		return (float)nowHP / (float)maxHP;
-	}
+    public void SetMaxHP(int maxHP)
+    {
+        this.maxHP = maxHP;
+        SetNowHP(maxHP);
+    }
 
-	private string GenerateHPformat()
-	{
-		return nowHP + " / " + maxHP;
-	}
+    private float GetPercentage()
+    {
+        return (float)nowHP / (float)maxHP;
+    }
+
+    private string GenerateHPformat()
+    {
+        return nowHP + " / " + maxHP;
+    }
 }
