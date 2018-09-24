@@ -24,14 +24,13 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        // キャラクターによって詠唱時間を変える
-        summonSpeedSec = GameStateManager.Instance.SelfCharaData.SummonSpeedSec;
-
         // リリース
+        summonSpeedSec = GameStateManager.Instance.SelfCharaData.SummonSpeedSec;
         isPlaying = false;
 
         //これはデバッグ用
         StartGameTimer();
+        summonSpeedSec = 5;
 
         blockArea = GameObject.Find("BlockArea");
         HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();

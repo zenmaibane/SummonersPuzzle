@@ -15,7 +15,6 @@ public class BlockGenerator : MonoBehaviour
 {
     static readonly System.Random random = new System.Random();
     public Queue<BlockData> NextBlocks { get; private set; }
-
     private Queue<int> debugRankList;
     private int debugCounter;
 
