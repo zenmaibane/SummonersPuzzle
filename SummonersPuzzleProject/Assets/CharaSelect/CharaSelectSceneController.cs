@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,8 +42,10 @@ public class CharaSelectSceneController : MonoBehaviour
 
     void OnClickSelectButton()
     {
+        CharaName charaName = (CharaName)Enum.ToObject(typeof(CharaName), charaIndex);
+
         GameStateManager.Instance.SelfCharaData =
-            charaDataGenerator.GenerateCharaData(CharaName.Alice);
+            charaDataGenerator.GenerateCharaData(charaName);
 
         SelfSceneManager.Instance.LoadBattleScene();
     }
