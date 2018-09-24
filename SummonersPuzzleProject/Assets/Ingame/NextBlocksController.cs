@@ -11,10 +11,10 @@ public class NextBlocksController : MonoBehaviour
     private readonly Vector2[] nextBlocksPosition =
         new Vector2[]
         {
-            new Vector2(-2, 0),
-            new Vector2(-2, 1),
-            new Vector2(-2, 2),
-            new Vector2(-2, 3)
+            new Vector2(-0.06f, -4.74f),
+            new Vector2(-0.88f, -4.74f),
+            new Vector2(-1.7f, -4.74f),
+            new Vector2(-2.52f, -4.74f)
         };
     private GameObject blockPrefab;
 
