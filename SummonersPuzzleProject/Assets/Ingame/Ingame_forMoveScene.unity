@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077490373a3595f4ca5254d426398da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSlider: {fileID: 791031733}
+  summonTimeText: {fileID: 1110568676}
 --- !u!1 &146658158
 GameObject:
   m_ObjectHideFlags: 0
