@@ -65,6 +65,7 @@ public class BlockShooter : MonoBehaviour
                         // 掴んだ時
                         nextBlocksController.SetNextBlockInShootingArea();
                         newBlock = shootingArea.transform.GetChild(0).gameObject;
+                        newBlock.transform.localScale = new Vector3(0.8f, 0.8f, 1);
                         Destroy(newBlock.GetComponent<NextBlockAnimation>());
                         newBlock.transform.parent = blockArea.transform;
                         shootingBlock = newBlock;
@@ -108,10 +109,10 @@ public class BlockShooter : MonoBehaviour
                 throw new ArgumentException("None");
         }
         newBlock.transform.position = pos;
-		newBlock.GetComponent<SpriteRenderer>().sortingOrder = 1;
-		newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
-		newBlock.GetComponent<BlockImageManager>().ImageReload();
-	}
+        newBlock.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
+        newBlock.GetComponent<BlockImageManager>().ImageReload();
+    }
 
     private bool CanShoot()
     {

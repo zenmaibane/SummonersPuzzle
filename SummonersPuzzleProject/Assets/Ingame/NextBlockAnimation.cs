@@ -11,12 +11,10 @@ public class NextBlockAnimation : MonoBehaviour
     void Update()
     {
         Vector2 nowPosition = this.transform.position;
-        Debug.Log(IsTargetPosition());
         if (!IsTargetPosition())
         {
             // 今の位置と目標地点が違った場合の処理（移動する）
             Vector2 targetDir = (TargetPosition - nowPosition);
-            Debug.Log($"Target.x {TargetPosition.x}, now.x {nowPosition.x}");
             if (targetDir.x != 0) targetDir.x /= Mathf.Abs(targetDir.x);
             if (targetDir.y != 0) targetDir.y /= Mathf.Abs(targetDir.y);
             targetDir.y *= -1;
