@@ -29,7 +29,7 @@ public class Timer : MonoBehaviour
         isPlaying = false;
 
         //これはデバッグ用
-        StartGameTimer();
+        //StartGameTimer();
         summonSpeedSec = 5;
 
         blockArea = GameObject.Find("BlockArea");
