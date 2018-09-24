@@ -65,6 +65,7 @@ public class BlockShooter : MonoBehaviour
                         // 掴んだ時
                         nextBlocksController.SetNextBlockInShootingArea();
                         newBlock = shootingArea.transform.GetChild(0).gameObject;
+                        Destroy(newBlock.GetComponent<NextBlockAnimation>());
                         newBlock.transform.parent = blockArea.transform;
                         shootingBlock = newBlock;
                     }
