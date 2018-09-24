@@ -14,8 +14,7 @@ using UnityEngine;
 public class BlockGenerator : MonoBehaviour
 {
     static readonly System.Random random = new System.Random();
-    public Queue<BlockData> nextBlocks { get; private set; }
-
+    public Queue<BlockData> NextBlocks { get; private set; }
     private Queue<int> debugRankList;
     private int debugCounter;
 
@@ -25,7 +24,6 @@ public class BlockGenerator : MonoBehaviour
     void Awake()
     {
         Init();
-
         debugRankList = new Queue<int>();
         debugRankList.Enqueue(1);
         debugCounter = 0;
@@ -33,30 +31,34 @@ public class BlockGenerator : MonoBehaviour
 
     private void Init()
     {
-        nextBlocks = new Queue<BlockData>();
+
+        NextBlocks = new Queue<BlockData>();
         for (var i = 0; i < BlockMaxCount; i++)
         {
-            nextBlocks.Enqueue(GenerateBlockData());
+            NextBlocks.Enqueue(GenerateBlockData());
         }
     }
 
     public BlockData GetNextBlock()
     {
-        var nextBlock = nextBlocks.Dequeue();
-        nextBlocks.Enqueue(GenerateBlockData());
+        var nextBlock = NextBlocks.Dequeue();
+        NextBlocks.Enqueue(GenerateBlockData());
         return nextBlock;
     }
 
     private BlockData GenerateBlockData()
     {
-        // TODO: キャラ性能によって生成するランクの範囲を変える
-        //int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 5.0f));
-        //int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 2.0f));
+        // リリース用
+        // var charaData = GameStateManager.Instance.SelfCharaData;
+        // int rank = (int)Math.Round((double)UnityEngine.Random.Range(
+        //     charaData.MinSummonLevel, charaData.MaxSummonLevel
+        //     ));
+        // BlockColor[] blockColors = charaData.SummonBlockColors;
+        Debug.Log(GameStateManager.Instance.SelfCharaData.CharaName);
+
+        // デバッグ用
         int rank = (debugCounter % 2) + 1;  // 1と2を交互に出す
         debugCounter++;
-
-        // TODO: キャラが使える色に応じたものを取得する(現状は3色からランダム)
-        //BlockColor[] blockColors = { BlockColor.Red, BlockColor.Yellow, BlockColor.Green };
         BlockColor[] blockColors = { BlockColor.Red };
 
         int randomColor = (int)Math.Round(UnityEngine.Random.Range(0.0f, blockColors.Length - 1));

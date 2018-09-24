@@ -9,7 +9,7 @@ public class GameStateManager : MonoBehaviour
 
     public BattleResult BattleResult { get; set; }
     public PlayMode PlayMode { get; set; }
-
+    public CharaData SelfCharaData { get; set; }
 
     public static GameStateManager Instance
     {
