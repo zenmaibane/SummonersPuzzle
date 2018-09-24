@@ -5,7 +5,7 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: New Animator Override Controller
+  m_Name: CharaAnimator
   m_Controller: {fileID: 9100000, guid: 96ed14593d92b4f7085689c4cd6d9f35, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 2035d02904a6e4c66b3da7230925f056, type: 2}

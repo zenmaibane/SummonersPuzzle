@@ -51,7 +51,7 @@ public class CharaSelectSceneController : MonoBehaviour
     {
         for (var i = 0; i < characters.transform.childCount; i++)
         {
-            characters.transform.GetChild(i).gameObject.SetActive(false);
+            characters.transform.GetChild(i).gameObject.GetComponent<UIController>().Hide();
         }
         UIController.Show();
     }
