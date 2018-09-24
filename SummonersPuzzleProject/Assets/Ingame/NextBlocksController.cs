@@ -14,7 +14,8 @@ public class NextBlocksController : MonoBehaviour
             new Vector2(-0.06f, -4.74f),
             new Vector2(-0.88f, -4.74f),
             new Vector2(-1.7f, -4.74f),
-            new Vector2(-2.52f, -4.74f)
+            new Vector2(-2.52f, -4.74f),
+            new Vector2(-3.34f, -4.74f)
         };
     private GameObject blockPrefab;
 
