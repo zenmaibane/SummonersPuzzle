@@ -28,6 +28,7 @@ public class ResultSceneController : MonoBehaviour
 
     void OnClickReplayButton()
     {
+        GameStateManager.Instance.SelfCharaData.ResetSummonSpeed();
         sceneManager.LoadBattleScene();
     }
 
@@ -35,6 +36,7 @@ public class ResultSceneController : MonoBehaviour
     {
         // その時プレイしているモードによる
         // sceneManager.LoadVsScene();
+        GameStateManager.Instance.SelfCharaData.ResetSummonSpeed();
         sceneManager.LoadSoloScene();
     }
 

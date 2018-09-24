@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
 
-    private float summonSpeedSec;
+    [SerializeField]private float summonSpeedSec;
     private bool isPlaying;
     private double countTime = 0;
     private GameObject blockArea;
@@ -24,14 +24,13 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        // キャラクターによって詠唱時間を変える
-        summonSpeedSec = 5;
-
         // リリース
+        summonSpeedSec = GameStateManager.Instance.SelfCharaData.SummonSpeedSec;
         isPlaying = false;
 
         //これはデバッグ用
         StartGameTimer();
+        summonSpeedSec = 5;
 
         blockArea = GameObject.Find("BlockArea");
         HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();

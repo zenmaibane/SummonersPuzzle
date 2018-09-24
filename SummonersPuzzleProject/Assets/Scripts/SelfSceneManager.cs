@@ -58,6 +58,8 @@ public class SelfSceneManager : MonoBehaviour
 
     public void LoadBattleScene()
     {
+        // マッチングシーンの方が正しいそう
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Ingame_forMoveScene");
         Debug.Log("バトルシーンを読み込んだよ");
     }
 

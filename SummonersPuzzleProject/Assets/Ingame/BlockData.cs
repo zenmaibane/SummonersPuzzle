@@ -10,11 +10,7 @@ using UnityEngine;
 */
 public class BlockData
 {
-    private int rank;
     public int Rank { get; set; }
-
-    private BlockColor color;
-
     public BlockColor Color { get; private set; }
 
     public BlockData(int rank, BlockColor color)
