@@ -54,7 +54,7 @@ public class BlockGenerator : MonoBehaviour
         //     charaData.MinSummonLevel, charaData.MaxSummonLevel
         //     ));
         // BlockColor[] blockColors = charaData.SummonBlockColors;
-        Debug.Log(GameStateManager.Instance.SelfCharaData.CharaName);
+        // Debug.Log(GameStateManager.Instance.SelfCharaData.CharaName);
 
         // デバッグ用
         int rank = (debugCounter % 2) + 1;  // 1と2を交互に出す

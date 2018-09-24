@@ -25,7 +25,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         // リリース
-        summonSpeedSec = GameStateManager.Instance.SelfCharaData.SummonSpeedSec;
+        // summonSpeedSec = GameStateManager.Instance.SelfCharaData.SummonSpeedSec;
         isPlaying = false;
 
         //これはデバッグ用
