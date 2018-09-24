@@ -9,27 +9,27 @@ public class CharaData
     public CharaName CharaName { get; }
     public BlockColor[] SummonBlockColors { get; }
     public int MaxHP { get; }
-    public float SummonSpeed { get; set; }
+    public float SummonSpeedSec { get; set; }
     public int MaxSummonLevel { get; }
     public int MinSummonLevel { get; }
 
     private float InitSummonSpeed { get; }
     public CharaData(CharaName charaName, BlockColor[] summonBlockColors,
-                    int maxHP, float summonSpeed, int maxSummonLevel, int minSummonLevel)
+                    int maxHP, float summonSpeedSec, int maxSummonLevel, int minSummonLevel)
     {
         CharaName = charaName;
         SummonBlockColors = summonBlockColors;
         MaxHP = maxHP;
-        SummonSpeed = summonSpeed;
+        SummonSpeedSec = summonSpeedSec;
         MaxSummonLevel = maxSummonLevel;
         MinSummonLevel = minSummonLevel;
 
-        InitSummonSpeed = summonSpeed;
+        InitSummonSpeed = summonSpeedSec;
     }
 
     public void ResetSummonSpeed()
     {
-        SummonSpeed = InitSummonSpeed;
+        SummonSpeedSec = InitSummonSpeed;
     }
 
 }
