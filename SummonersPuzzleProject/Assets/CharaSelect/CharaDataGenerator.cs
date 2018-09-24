@@ -14,7 +14,7 @@ public enum CharaName
 
 public class CharaDataGenerator : MonoBehaviour
 {
-    public CharaData GetNextBlock(CharaName charaName)
+    public CharaData GenerateCharaData(CharaName charaName)
     {
         switch (charaName)
         {

@@ -7,17 +7,15 @@ using UnityEngine.SceneManagement;
 public class CharaData
 {
     public CharaName CharaName { get; }
-    public BlockColor[] SummonBlockColors { get; private set; }
+    public BlockColor[] SummonBlockColors { get; }
     public int MaxHP { get; }
     public float SummonSpeed { get; set; }
-
     public int MaxSummonLevel { get; }
     public int MinSummonLevel { get; }
 
-
-
+    private float InitSummonSpeed { get; }
     public CharaData(CharaName charaName, BlockColor[] summonBlockColors,
-                    int maxHP ,float summonSpeed, int maxSummonLevel, int minSummonLevel)
+                    int maxHP, float summonSpeed, int maxSummonLevel, int minSummonLevel)
     {
         CharaName = charaName;
         SummonBlockColors = summonBlockColors;
@@ -25,6 +23,13 @@ public class CharaData
         SummonSpeed = summonSpeed;
         MaxSummonLevel = maxSummonLevel;
         MinSummonLevel = minSummonLevel;
+
+        InitSummonSpeed = summonSpeed;
+    }
+
+    public void ResetSummonSpeed()
+    {
+        SummonSpeed = InitSummonSpeed;
     }
 
 }

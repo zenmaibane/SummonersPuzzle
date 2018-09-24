@@ -8,6 +8,7 @@ public class CharaSelectSceneController : MonoBehaviour
 
     [SerializeField] private Button backButton;
     [SerializeField] private Button selectButton;
+    [SerializeField] private CharaDataGenerator charaDataGenerator;
 
     void Start()
     {
@@ -16,14 +17,19 @@ public class CharaSelectSceneController : MonoBehaviour
 
         //リリース時には消す
         SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
-        GameStateManager.Instantiate(GameObject.Find("GameManager"));          
+        GameStateManager.Instantiate(GameObject.Find("GameManager"));
     }
 
-    void OnClickBackButton(){
+    void OnClickBackButton()
+    {
         SelfSceneManager.Instance.LoadHomeScene();
     }
 
-	void OnClickSelectButton(){
+    void OnClickSelectButton()
+    {
+        GameStateManager.Instance.SelfCharaData =
+            charaDataGenerator.GenerateCharaData(CharaName.Alice);
+
         SelfSceneManager.Instance.LoadBattleScene();
-	}
+    }
 }

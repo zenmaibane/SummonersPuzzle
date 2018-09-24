@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public CharacterData CharacterData { get;  set; }    
+    public CharaData CharaData { get; set; }
 }
