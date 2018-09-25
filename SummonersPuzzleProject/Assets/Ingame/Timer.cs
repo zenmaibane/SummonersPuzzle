@@ -18,9 +18,9 @@ public class Timer : MonoBehaviour
     private bool isPlaying;
     private double countTime = 0;
     private GameObject blockArea;
-    private GridInfo gridInfo;
-    private HPManager HPManager;
 
+    private AttackManager attackManager;
+    private GridInfo gridInfo;
     [SerializeField] private TextMeshProUGUI summonTimeText;
 
     void Start()
@@ -34,7 +34,7 @@ public class Timer : MonoBehaviour
         summonSpeedSec = 15;
 
         blockArea = GameObject.Find("BlockArea");
-        HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();
+        attackManager = GameObject.Find("AttackManager").GetComponent<AttackManager>();
 
         gridInfo = blockArea.GetComponent<GridInfo>();
     }
@@ -71,11 +71,16 @@ public class Timer : MonoBehaviour
                 {
                     totalRank += monster.GetComponent<Block>().blockData.Rank;
                     BlockLight light = monster.transform.Find("Light").GetComponent<BlockLight>();
-                    StartCoroutine(DelayMethod(delaySec, () => { light.Merge(); }));
+                    Color color = monster.GetComponent<SpriteRenderer>().color;
+                    StartCoroutine(DelayMethod(delaySec, () =>
+                    {
+                        monster.GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, 0);
+                        light.Merge();
+                    }));
                     delaySec += 0.1f;
                 }
             }
-            HPManager.DamageRival(totalRank);
+            attackManager.Attack(totalRank);
             countTime = 0;
         }
         summonTimeText.SetText(string.Format("{0:0.0}", (summonSpeedSec - countTime)));
@@ -91,4 +96,5 @@ public class Timer : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         action();
     }
+
 }
