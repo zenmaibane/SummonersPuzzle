@@ -18,7 +18,7 @@ public class BlockGenerator : MonoBehaviour
     private Queue<int> debugRankList;
     private int debugCounter;
 
-    public static readonly int BlockMaxCount = 4;
+    public readonly int BlockMaxCount = 5;
 
     // Use this for initialization
     void Awake()
