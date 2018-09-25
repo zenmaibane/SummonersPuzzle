@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -62,14 +63,16 @@ public class Timer : MonoBehaviour
         {
             // 最上部のモンスターを消してダメージを与える
             int totalRank = 0;
+            var delaySec = 0f;
             for (int i = 0; i < gridInfo.monsterPos.GetLength(0); i++)
             {
                 var monster = gridInfo.monsterPos[i, 0];
                 if (monster != null)
                 {
                     totalRank += monster.GetComponent<Block>().blockData.Rank;
-                    Destroy(monster);
-                    monster = null;
+                    BlockLight light = monster.transform.Find("Light").GetComponent<BlockLight>();
+                    StartCoroutine(DelayMethod(delaySec, () => { light.Merge(); }));
+                    delaySec += 0.1f;
                 }
             }
             HPManager.DamageRival(totalRank);
@@ -81,5 +84,11 @@ public class Timer : MonoBehaviour
     public void StartGameTimer()
     {
         isPlaying = true;
+    }
+
+    private IEnumerator DelayMethod(float waitTime, Action action)
+    {
+        yield return new WaitForSeconds(waitTime);
+        action();
     }
 }
