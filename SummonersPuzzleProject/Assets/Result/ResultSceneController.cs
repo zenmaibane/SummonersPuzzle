@@ -19,16 +19,16 @@ public class ResultSceneController : MonoBehaviour
         replayButton?.onClick.AddListener(OnClickReplayButton);
         charaSelectButton?.onClick.AddListener(OnClickCharaSelectButton);
         homeButton?.onClick.AddListener(OnClickHomeButton);
-        
-		//本番時には消す
-		SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
-        
-		sceneManager = SelfSceneManager.Instance;
+
+        //本番時には消す
+        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
+
+        sceneManager = SelfSceneManager.Instance;
     }
 
     void OnClickReplayButton()
     {
-        GameStateManager.Instance.SelfCharaData.ResetSummonSpeed();
+        GameStateManager.Instance.MyCharaData.ResetSummonSpeed();
         sceneManager.LoadBattleScene();
     }
 
@@ -36,7 +36,7 @@ public class ResultSceneController : MonoBehaviour
     {
         // その時プレイしているモードによる
         // sceneManager.LoadVsScene();
-        GameStateManager.Instance.SelfCharaData.ResetSummonSpeed();
+        GameStateManager.Instance.MyCharaData.ResetSummonSpeed();
         sceneManager.LoadSoloScene();
     }
 

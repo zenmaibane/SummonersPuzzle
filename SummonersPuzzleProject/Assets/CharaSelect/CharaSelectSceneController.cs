@@ -44,7 +44,7 @@ public class CharaSelectSceneController : MonoBehaviour
     {
         CharaName charaName = (CharaName)Enum.ToObject(typeof(CharaName), charaIndex);
 
-        GameStateManager.Instance.SelfCharaData =
+        GameStateManager.Instance.MyCharaData =
             charaDataGenerator.GenerateCharaData(charaName);
 
         SelfSceneManager.Instance.LoadBattleScene();
