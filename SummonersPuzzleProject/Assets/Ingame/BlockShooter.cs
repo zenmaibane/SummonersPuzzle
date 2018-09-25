@@ -63,7 +63,7 @@ public class BlockShooter : MonoBehaviour
                         // 掴んだ時
                         nextBlocksController.SetNextBlockInShootingArea();
                         newBlock = shootingArea.transform.GetChild(0).gameObject;
-                        newBlock.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+                        newBlock.transform.localScale = new Vector3(0.73f, 0.73f, 1);
                         Destroy(newBlock.GetComponent<NextBlockAnimation>());
                         newBlock.transform.parent = blockArea.transform;
                         shootingBlock = newBlock;
@@ -95,19 +95,19 @@ public class BlockShooter : MonoBehaviour
         switch (index)
         {
             case 0:
-                pos = new Vector2(-1.86f, -4.53f);
+                pos = new Vector2(-1.648f, -4f);
                 break;
             case 1:
-                pos = new Vector2(-0.83f, -4.53f);
+                pos = new Vector2(-0.68f, -4f);
                 break;
             case 2:
-                pos = new Vector2(0.13f, -4.53f);
+                pos = new Vector2(0.29f, -4f);
                 break;
             case 3:
-                pos = new Vector2(1.16f, -4.53f);
+                pos = new Vector2(1.259f, -4f);
                 break;
             case 4:
-                pos = new Vector2(2.1f, -4.53f);
+                pos = new Vector2(2.228f, -4f);
                 break;
             default:
                 throw new ArgumentException("None");
