@@ -82,7 +82,8 @@ public class BlockShooter : MonoBehaviour
                     {
                         newBlock.GetComponent<BlockAnimation>().SetStartPos(cols.IndexOf(neighborCol), 5);
 						newBlock.transform.Find("Light").GetComponent<SpriteRenderer>().enabled = false;
-                    }
+						GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("shoot", 0.5f);
+					}
                     newBlock = null;
                 }
             }

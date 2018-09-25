@@ -66,6 +66,7 @@ public class BlockAnimation : MonoBehaviour
 				//transform.position = gridInfo.centerCoordinate[targetPos.x, targetPos.y];
 				if (deleteFlag)
 				{
+					GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("merge", 0.5f);
 					//gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<Block>().blockData.Rank += gridInfo.monsterPos[nowPos.x, nowPos.y].GetComponent<Block>().blockData.Rank;
 					if (gridInfo.monsterPos[targetPos.x, targetPos.y] != null)
 					{
@@ -210,6 +211,7 @@ public class BlockAnimation : MonoBehaviour
 			if (transform.localScale.x >= 0.9f && IsArrived == false)
 			{
 				//print("最上部到達");
+				GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("collide", 0.5f);
 			}
 			IsArrived = true;
 		}
@@ -218,6 +220,7 @@ public class BlockAnimation : MonoBehaviour
 			if (transform.localScale.x >= 0.9f && IsArrived == false)
 			{
 				//print("ブロック到達");
+				GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("collide", 0.5f);
 			}
 			// ブロック到達
 			IsArrived = true;

@@ -22,14 +22,17 @@ public class HomeSceneController : MonoBehaviour
 
     void OnClickVsButton(){
         SelfSceneManager.Instance.LoadVsScene();
+		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
     }
 
 	void OnClickSoloButton(){
         SelfSceneManager.Instance.LoadSoloScene();
+		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
 	}
 
 	void OnClickHowToButton(){
         SelfSceneManager.Instance.LoadHowToScene();
-    }
+		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
+	}
 
 }
