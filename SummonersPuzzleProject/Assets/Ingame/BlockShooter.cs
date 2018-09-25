@@ -28,9 +28,7 @@ public class BlockShooter : MonoBehaviour
 
     private GameObject shootingArea;
 
-
     private NextBlocksController nextBlocksController;
-
 
     void Start()
     {
@@ -49,17 +47,17 @@ public class BlockShooter : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+        Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
 
-            if (hit)
+        if (hit)
+        {
+            Bounds rect = hit.collider.bounds;
+            if (rect.Contains(worldPoint))
             {
-                Bounds rect = hit.collider.bounds;
-                if (rect.Contains(worldPoint))
+                var neighborCol = hit.collider.gameObject;
+                if (Input.GetMouseButton(0))
                 {
-                    var neighborCol = hit.collider.gameObject;
                     if (newBlock == null && CanShoot())
                     {
                         // 掴んだ時
@@ -70,18 +68,26 @@ public class BlockShooter : MonoBehaviour
                         newBlock.transform.parent = blockArea.transform;
                         shootingBlock = newBlock;
                     }
+
                     if (newBlock != null)
                     {
                         SetBlockPosition(neighborCol);
                     }
                 }
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    Debug.Log("hai");
+                    if (newBlock != null && newBlock.GetComponent<BlockAnimation>() != null)
+                    {
+                        Debug.Log("turai");
+                        newBlock.GetComponent<BlockAnimation>().SetStartPos(cols.IndexOf(neighborCol), 5);
+                    }
+                    newBlock = null;
+                }
             }
         }
-        if (Input.GetMouseButtonUp(0))
-        {
-            // Debug.Log("離した");
-            newBlock = null;
-        }
+
     }
 
     private void SetBlockPosition(GameObject neighborCol)
@@ -110,7 +116,6 @@ public class BlockShooter : MonoBehaviour
         }
         newBlock.transform.position = pos;
         newBlock.GetComponent<SpriteRenderer>().sortingOrder = 1;
-        newBlock.GetComponent<BlockAnimation>().SetStartPos(index, 5);
         newBlock.GetComponent<BlockImageManager>().ImageReload();
     }
 

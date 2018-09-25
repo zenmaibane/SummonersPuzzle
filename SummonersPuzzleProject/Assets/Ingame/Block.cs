@@ -16,11 +16,8 @@ public class Block : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-
         var blockGenerator = GameObject.Find("BlockStarter").GetComponent<BlockGenerator>();
         blockData = blockGenerator.GetNextBlock();
-
-        // Debug.Log(blockData);
     }
 
     // Update is called once per frame
