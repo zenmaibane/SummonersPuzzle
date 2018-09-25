@@ -18,6 +18,7 @@ public class ForceChanger : MonoBehaviour {
 
 	private Image gauge;
 	private Image soul;
+	private Image number;
 
 	private bool twice;
 
@@ -28,6 +29,9 @@ public class ForceChanger : MonoBehaviour {
 		viewForce = 0;
 		gauge = transform.Find("Gauge").GetComponent<Image>();
 		soul = transform.Find("SoulBase/Soul").GetComponent<Image>();
+		number = transform.Find("Number").GetComponent<Image>();
+
+		number.enabled = false;
 	}
 	
 	void Update () {
@@ -55,6 +59,11 @@ public class ForceChanger : MonoBehaviour {
 		{
 			soul.fillAmount += 0.05f;
 		}
+
+		if(number.gameObject.transform.localScale.x >= 0.9f)
+		{
+			number.gameObject.transform.localScale -= new Vector3(0.05f, 0.05f);
+		}
 	}
 
 	public void SetNowForce(float force)
@@ -65,10 +74,23 @@ public class ForceChanger : MonoBehaviour {
 		if(this.viewForce > force % 1.0f)
 		{
 			soul.fillAmount = 0;
-			// TODO: 倍率が書かれた画像を差し替える処理
-
+			// 倍率が書かれた画像を差し替える処理
+			SetForceNumber(Mathf.CeilToInt(force));
 		}
 		this.viewForce = force % 1.0f;
 		gaugeMoving = true;
+	}
+
+	// Resourcesから各倍率のスプライトを読み込んで、表示させる
+	private void SetForceNumber(int num)
+	{
+		if (num == 1) num++;   // たまに1になる場合が見受けられたので、無理やり修正
+		number.enabled = true;
+		Sprite sprite = Resources.Load<Sprite>("ForceGauge/x" + num);
+		//print("ForceGauge/x" + num);
+		number.sprite = sprite;
+
+		// TODO: 効果音
+
 	}
 }
