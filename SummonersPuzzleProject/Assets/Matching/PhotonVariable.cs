@@ -6,7 +6,7 @@ public class PhotonVariable : Photon.MonoBehaviour
 {
 	private GameObject hpManager;
 	public int attackDamage;
-	public string charaName;
+	public int charaNumber;
 	//public int getHP;
 
 	void Start()
@@ -20,13 +20,13 @@ public class PhotonVariable : Photon.MonoBehaviour
 		if (stream.isWriting)
 		{
 			stream.SendNext(attackDamage);
-			stream.SendNext(charaName);
+			stream.SendNext(charaNumber);
 
 		}
 		else
 		{
 			attackDamage = (int)stream.ReceiveNext();
-			charaName = (string)stream.ReceiveNext();
+			charaNumber = (int)stream.ReceiveNext();
 
 			if (hpManager == null)
 			{

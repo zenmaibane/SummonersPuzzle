@@ -10,11 +10,13 @@ public class BattleAreaController : MonoBehaviour
 
         // リリース
         CharaData myCharaData = GameStateManager.Instance.MyCharaData;
-        // CharaData rivalCharaData = 相手の情報を取得
+		int rivalCharaNumber = GameObject.Find("ShareData(Clone)").GetComponent<PhotonVariable>().charaNumber;
+		CharaDataGenerator generator = new CharaDataGenerator();
+		CharaData rivalCharaData = generator.GenerateCharaData((CharaName)rivalCharaNumber);
 
         // デバッグ
-        CharaData rivalCharaData = new CharaData(CharaName.Hagane, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
-                                    maxHP: 1000, summonSpeedSec: 14f, minSummonLevel: 2, maxSummonLevel: 3);
+        //CharaData rivalCharaData = new CharaData(CharaName.Hagane, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
+        //                            maxHP: 1000, summonSpeedSec: 14f, minSummonLevel: 2, maxSummonLevel: 3);
 
         var myChara = GameObject.Find("MyChara");
         GenerateBattleChara(myChara, myCharaData, false);

@@ -19,7 +19,7 @@ EditorBuildSettings:
     guid: 9d58b233c7b1a6145a256c09b6ab1c32
   - enabled: 1
     path: Assets/Ingame/Ingame.unity
-    guid: 060d6886d2eed634e85ceb1e9c6f893f
+    guid: 1fa198474136c1e498dea216e78df9cd
   - enabled: 1
     path: Assets/Result/Result.unity
     guid: 4bb7ac494d203b543a96a620fc51008c

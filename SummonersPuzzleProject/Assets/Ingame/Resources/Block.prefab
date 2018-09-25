@@ -172,7 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   merge: 0
-  alphaSpeed: 0.02
 --- !u!114 &114423449559659108
 MonoBehaviour:
   m_ObjectHideFlags: 1

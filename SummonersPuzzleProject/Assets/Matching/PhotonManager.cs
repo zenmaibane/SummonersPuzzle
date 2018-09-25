@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PhotonManager : Photon.PunBehaviour
 {
 	public string ObjectName = "ShareData";
+	private GameObject shareDataObject;
 
 	void Start()
 	{
@@ -51,10 +52,10 @@ public class PhotonManager : Photon.PunBehaviour
 		Debug.Log("OnJoinedRoom");
 
 		// 「ルーム」に接続したら共有データを生成する
-		GameObject myDataObject = PhotonNetwork.Instantiate(ObjectName, Vector3.zero, Quaternion.identity, 0);
+		shareDataObject = PhotonNetwork.Instantiate(ObjectName, Vector3.zero, Quaternion.identity, 0);
 		PhotonNetwork.playerName = "player" + (PhotonNetwork.playerList.Length % 2);
 		print("your name = " + PhotonNetwork.playerName);
-		myDataObject.name = "ShareData(Mine)";
+		shareDataObject.name = "ShareData(Mine)";
 
 		ToGameStart();
 	}
@@ -70,6 +71,7 @@ public class PhotonManager : Photon.PunBehaviour
 	{
 		if(PhotonNetwork.playerList.Length == 2)
 		{
+			shareDataObject.GetComponent<PhotonVariable>().charaNumber = (int)GameStateManager.Instance.MyCharaData.CharaName;
 			SceneManager.LoadScene("Ingame");
 		}
 	}
