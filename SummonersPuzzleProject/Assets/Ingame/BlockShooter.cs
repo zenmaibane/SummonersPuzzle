@@ -115,7 +115,7 @@ public class BlockShooter : MonoBehaviour
                 throw new ArgumentException("None");
         }
         newBlock.transform.position = pos;
-        newBlock.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        newBlock.GetComponent<SpriteRenderer>().sortingOrder = 2;
         newBlock.GetComponent<BlockImageManager>().ImageReload();
     }
 
