@@ -9,7 +9,7 @@ public class BlockAnimation : MonoBehaviour
 	public Vector2Int nowPos;
 	public Vector2Int targetPos;
 
-	private float moveSpeed = 0.05f;
+	private float moveSpeed = 0.11f;
 
 	private GridInfo gridInfo;   // 参照用
 	private ForceManager forceManager;
@@ -55,7 +55,7 @@ public class BlockAnimation : MonoBehaviour
 			transform.position = new Vector3(transform.position.x + (targetDir.x * moveSpeed), transform.position.y + (targetDir.y * moveSpeed));
 
 			//print("distance = " + Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position));
-			if (Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position) <= 0.05f)
+			if (Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position) <= 0.1f)
 			{
 				if (deleteFlag)
 				{
