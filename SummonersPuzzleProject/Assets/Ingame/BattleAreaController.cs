@@ -5,28 +5,35 @@ using UnityEngine;
 
 public class BattleAreaController : MonoBehaviour
 {
-
-    private CharaData myCharaData;
-
-    private CharaData rivalCharaData;
-
     void Start()
     {
-        // myCharaData = GameStateManager.Instance.MyCharaData;
-        // rivalCharaData = <いい感じに処理しましょう:pray:>
 
-        myCharaData = new CharaData(CharaName.Alice, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
-                                     maxHP: 1000, summonSpeedSec: 14f, minSummonLevel: 2, maxSummonLevel: 3);
+        // リリース
+        // CharaData myCharaData = GameStateManager.Instance.MyCharaData;
+        // CharaData rivalCharaData = 相手の情報を取得
+
+        // デバッグ
+        CharaData myCharaData = new CharaData(CharaName.Alice, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
+                                    maxHP: 1000, summonSpeedSec: 14f, minSummonLevel: 2, maxSummonLevel: 3);
+        CharaData rivalCharaData = new CharaData(CharaName.Alice, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
+                                    maxHP: 1000, summonSpeedSec: 14f, minSummonLevel: 2, maxSummonLevel: 3);
 
         var myChara = GameObject.Find("MyChara");
-        string myCharaName = Enum.GetName(typeof(CharaName), myCharaData.CharaName);
-        var charaPrefab = Resources.Load<GameObject>($"Chara/{myCharaName}");
-        var chara = Instantiate(charaPrefab, myChara.transform.position, Quaternion.identity);
-        chara.transform.parent = myChara.transform;
+        GenerateBattleChara(myChara, myCharaData, false);
+        var rivalChara = GameObject.Find("RivalChara");
+        GenerateBattleChara(rivalChara, rivalCharaData, true);
     }
 
-    void Update()
+    private void GenerateBattleChara(GameObject chara, CharaData charaData, bool isRivalChara)
     {
-
+        string charaName = Enum.GetName(typeof(CharaName), charaData.CharaName);
+        var charaPrefab = Resources.Load<GameObject>($"Chara/{charaName}");
+        var go = Instantiate(charaPrefab, chara.transform.position, Quaternion.identity);
+        if (isRivalChara)
+        {
+            var image = go.transform.GetChild(0);
+            image.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        go.transform.parent = chara.transform;
     }
 }
