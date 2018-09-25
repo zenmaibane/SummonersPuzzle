@@ -9,18 +9,30 @@ public class CharaSelectSceneController : MonoBehaviour
 
     [SerializeField] private Button backButton;
     [SerializeField] private Button selectButton;
-    [SerializeField] private Button charaButton;
+    [SerializeField] private Button haganeButton;
+    [SerializeField] private Button nyantasoButton;
+    [SerializeField] private Button kanadeButton;
+
     [SerializeField] private CharaDataGenerator charaDataGenerator;
 
     private GameObject characters;
+    private GameObject charaSelectButtons;
 
-    private int charaIndex;
+    private CharaName selectedChara;
+
     void Start()
     {
         backButton?.onClick.AddListener(OnClickBackButton);
+
         selectButton?.onClick.AddListener(OnClickSelectButton);
-        charaButton?.onClick.AddListener(OnClickCharaButton);
+
+        haganeButton?.onClick.AddListener(OnClickHaganeButton);
+        nyantasoButton?.onClick.AddListener(OnClickNyantasoButton);
+        kanadeButton?.onClick.AddListener(OnClickKanadeButton);
+
         characters = GameObject.Find("Characters");
+        charaSelectButtons = GameObject.Find("CharaSelectButtons");
+        SelectChara(CharaName.Hagane);
 
         //リリース時には消す
         SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
@@ -32,30 +44,59 @@ public class CharaSelectSceneController : MonoBehaviour
         SelfSceneManager.Instance.LoadHomeScene();
     }
 
-    void OnClickCharaButton()
+    void OnClickHaganeButton()
     {
-        charaIndex = (charaIndex + 1) % characters.transform.childCount;
-        var character = characters.transform.GetChild(charaIndex);
-        var UIController = character.gameObject.GetComponent<UIController>();
-        ChangeChara(character.gameObject.activeSelf, UIController);
+        selectedChara = CharaName.Hagane;
+        SelectChara(selectedChara);
+    }
+
+    void OnClickNyantasoButton()
+    {
+        selectedChara = CharaName.Nyantaso;
+        SelectChara(selectedChara);
+    }
+
+    void OnClickKanadeButton()
+    {
+        selectedChara = CharaName.Kanade;
+        SelectChara(selectedChara);
+    }
+
+    void SelectChara(CharaName charaName)
+    {
+        int index = (int)charaName;
+        for (var i = 0; i < characters.transform.childCount; i++)
+        {
+            if (i == index)
+            {
+                characters.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                characters.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+        for (var i = 0; i < charaSelectButtons.transform.childCount; i++)
+        {
+            if (i == index)
+            {
+                charaSelectButtons.transform.GetChild(i).gameObject
+                    .GetComponent<ButtonSelectAnimation>().Selected = true;
+            }
+            else
+            {
+                charaSelectButtons.transform.GetChild(i).gameObject
+                    .GetComponent<ButtonSelectAnimation>().Selected = false;
+            }
+        }
     }
 
     void OnClickSelectButton()
     {
-        CharaName charaName = (CharaName)Enum.ToObject(typeof(CharaName), charaIndex);
-
-        GameStateManager.Instance.SelfCharaData =
-            charaDataGenerator.GenerateCharaData(charaName);
-
+        GameStateManager.Instance.MyCharaData =
+            charaDataGenerator.GenerateCharaData(selectedChara);
+        Debug.Log(selectedChara);
         SelfSceneManager.Instance.LoadBattleScene();
     }
 
-    private void ChangeChara(bool activeSelf, UIController UIController)
-    {
-        for (var i = 0; i < characters.transform.childCount; i++)
-        {
-            characters.transform.GetChild(i).gameObject.GetComponent<UIController>().Hide();
-        }
-        UIController.Show();
-    }
 }

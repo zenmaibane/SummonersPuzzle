@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
 
-    [SerializeField]private float summonSpeedSec;
+    [SerializeField] private float summonSpeedSec;
     private bool isPlaying;
     private double countTime = 0;
     private GameObject blockArea;
@@ -25,7 +25,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         // リリース
-        // summonSpeedSec = GameStateManager.Instance.SelfCharaData.SummonSpeedSec;
+        // summonSpeedSec = GameStateManager.Instance.MyCharaData.SummonSpeedSec;
         isPlaying = false;
 
         //これはデバッグ用

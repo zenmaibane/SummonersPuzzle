@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class IngameSceneController : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         //デバッグ用．本来はいらない
         SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
         GameStateManager.Instantiate(GameObject.Find("GameStateManager"));
+        if (GameStateManager.Instance.MyCharaData == null)
+        {
+            GameStateManager.Instance.MyCharaData = new CharaData(CharaName.Hagane, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
+                                    maxHP: 1000, summonSpeedSec: 14f, minSummonLevel: 2, maxSummonLevel: 3);
+        }
     }
 
     public void LoadResultScene()
-    { 
+    {
         SelfSceneManager.Instance.LoadResultScene();
     }
 }

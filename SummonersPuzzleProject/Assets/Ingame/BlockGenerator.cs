@@ -49,12 +49,12 @@ public class BlockGenerator : MonoBehaviour
     private BlockData GenerateBlockData()
     {
         // リリース用
-        // var charaData = GameStateManager.Instance.SelfCharaData;
+        // var charaData = GameStateManager.Instance.MyCharaData;
         // int rank = (int)Math.Round((double)UnityEngine.Random.Range(
         //     charaData.MinSummonLevel, charaData.MaxSummonLevel
         //     ));
         // BlockColor[] blockColors = charaData.SummonBlockColors;
-        // Debug.Log(GameStateManager.Instance.SelfCharaData.CharaName);
+        // Debug.Log(GameStateManager.Instance.MyCharaData.CharaName);
 
         // デバッグ用
         int rank = (debugCounter % 2) + 1;  // 1と2を交互に出す
