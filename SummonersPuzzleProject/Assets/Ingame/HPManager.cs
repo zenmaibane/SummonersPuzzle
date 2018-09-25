@@ -98,7 +98,7 @@ public class HPManager : MonoBehaviour
 
     private void CompleteBattle()
     {
-        bool lose = myHP <= 0;
+        bool lose = myHP <= float.Epsilon;
         bool win = rivalHP <= float.Epsilon;
 
         if (win && lose)
