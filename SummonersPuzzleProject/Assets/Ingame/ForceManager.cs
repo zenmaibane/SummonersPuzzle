@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class ForceManager : MonoBehaviour {
 
-	private float force;
+	public float force;
 	private ForceChanger forceChanger;
 
 	void Start () {
