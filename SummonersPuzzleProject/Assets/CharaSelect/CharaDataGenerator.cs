@@ -7,9 +7,9 @@ using UnityEngine;
 
 public enum CharaName
 {
-    Alice,
-    Becca,
-    Charlotte
+    Hagane,
+    Nyantaso,
+    Kanade
 }
 
 public class CharaDataGenerator : MonoBehaviour
@@ -18,15 +18,15 @@ public class CharaDataGenerator : MonoBehaviour
     {
         switch (charaName)
         {
-            case CharaName.Alice:
-                return new CharaData(CharaName.Alice, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
-                                     maxHP:1000 ,summonSpeedSec: 14f, minSummonLevel: 2, maxSummonLevel: 3);
-            case CharaName.Becca:
-                return new CharaData(CharaName.Becca, new BlockColor[] { BlockColor.Yellow, BlockColor.Green },
-                                     maxHP:1000 ,summonSpeedSec: 10f, minSummonLevel: 1, maxSummonLevel: 3);
-            case CharaName.Charlotte:
-                return new CharaData(CharaName.Charlotte, new BlockColor[] { BlockColor.Yellow },
-                                     maxHP:1000 ,summonSpeedSec: 7f, minSummonLevel: 1, maxSummonLevel: 2);
+            case CharaName.Hagane:
+                return new CharaData(CharaName.Hagane, new BlockColor[] { BlockColor.Yellow, BlockColor.Green },
+                                     maxHP: 1000, summonSpeedSec: 16f, minSummonLevel: 3, maxSummonLevel: 5);
+            case CharaName.Nyantaso:
+                return new CharaData(CharaName.Nyantaso, new BlockColor[] { BlockColor.Yellow },
+                                     maxHP: 1000, summonSpeedSec: 10f, minSummonLevel: 1, maxSummonLevel: 4);
+            case CharaName.Kanade:
+                return new CharaData(CharaName.Kanade, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
+                                     maxHP: 1000, summonSpeedSec: 20f, minSummonLevel: 4, maxSummonLevel: 7);
             default:
                 throw new ArgumentException($"{Enum.GetName(typeof(CharaName), charaName)} Data is not defined.");
         }

@@ -13,7 +13,7 @@ public class BattleAreaController : MonoBehaviour
         // CharaData rivalCharaData = 相手の情報を取得
 
         // デバッグ
-        CharaData rivalCharaData = new CharaData(CharaName.Alice, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
+        CharaData rivalCharaData = new CharaData(CharaName.Hagane, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
                                     maxHP: 1000, summonSpeedSec: 14f, minSummonLevel: 2, maxSummonLevel: 3);
 
         var myChara = GameObject.Find("MyChara");
