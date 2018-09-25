@@ -24,7 +24,11 @@ public class SelfSceneManager : MonoBehaviour
         // 最初のシーンからやらなくてもいいようなデバッグ用関数
         GenerateDebugInstance(go);
 
-        instance = go.GetComponent<SelfSceneManager>() ?? go.AddComponent<SelfSceneManager>();
+        if (instance == null)
+        {
+            instance = go.GetComponent<SelfSceneManager>() ?? go.AddComponent<SelfSceneManager>();
+        }
+        
         if (UnityEngine.Application.isPlaying)
         {
             DontDestroyOnLoad(instance.gameObject);
