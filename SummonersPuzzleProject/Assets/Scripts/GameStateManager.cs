@@ -27,7 +27,11 @@ public class GameStateManager : MonoBehaviour
         // 最初のシーンからやらなくてもいいようなデバッグ用関数
         GenerateDebugInstance(go);
 
-        instance = go.GetComponent<GameStateManager>() ?? go.AddComponent<GameStateManager>();
+        if (instance == null)
+        {
+            instance = go.GetComponent<GameStateManager>() ?? go.AddComponent<GameStateManager>();
+        }
+        
         if (UnityEngine.Application.isPlaying)
         {
             DontDestroyOnLoad(instance.gameObject);
