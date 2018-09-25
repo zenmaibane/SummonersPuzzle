@@ -27,7 +27,9 @@ public class NextBlocksController : MonoBehaviour
         for (var i = 0; i < nextBlocksPosition.Length; i++)
         {
             var block = GenerateBlockGameObject();
-            block.transform.position = nextBlocksPosition[i];
+            // block.transform.position = nextBlocksPosition[i];
+            block.transform.position = new Vector2(-5f, nextBlocksPosition[i].y);
+            block.AddComponent<NextBlockAnimation>().TargetPosition = nextBlocksPosition[i];
             block.GetComponent<SpriteRenderer>().sortingOrder = 1;
             block.GetComponent<BlockImageManager>().ImageReload();
         }
@@ -59,6 +61,7 @@ public class NextBlocksController : MonoBehaviour
                 go.AddComponent<NextBlockAnimation>();
             }
             go.GetComponent<NextBlockAnimation>().TargetPosition = nextBlocksPosition[i - 1];
+            go.GetComponent<NextBlockAnimation>().MoveSpeed = 0.1f;
             go.GetComponent<BlockImageManager>().ImageReload();
         }
     }
