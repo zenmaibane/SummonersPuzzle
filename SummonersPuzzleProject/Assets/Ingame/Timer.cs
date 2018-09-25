@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
 
         //これはデバッグ用
         //StartGameTimer();
-        summonSpeedSec = 5;
+        summonSpeedSec = 15;
 
         blockArea = GameObject.Find("BlockArea");
         HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();

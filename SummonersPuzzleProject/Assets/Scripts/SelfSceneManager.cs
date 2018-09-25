@@ -63,8 +63,14 @@ public class SelfSceneManager : MonoBehaviour
     public void LoadBattleScene()
     {
         // マッチングシーンの方が正しいそう
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Ingame");
-        Debug.Log("バトルシーンを読み込んだよ");
+		if(GameStateManager.Instance.PlayMode == PlayMode.VS){
+	        UnityEngine.SceneManagement.SceneManager.LoadScene("Matching");
+		}
+		else
+		{
+	        UnityEngine.SceneManagement.SceneManager.LoadScene("Ingame");
+		}
+		Debug.Log("バトルシーンを読み込んだよ");
     }
 
     public void LoadResultScene()
