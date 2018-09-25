@@ -99,7 +99,6 @@ public class HPManager : MonoBehaviour
 
         //TODO: 体力ゲージへの反映、ゲームオーバー判定、被ダメージエフェクトの処理
         myHPChanger.SetNowHP(myHP);
-
     }
 
     private string GenerateHPformat(int nowHP, int maxHP)
@@ -114,7 +113,7 @@ public class HPManager : MonoBehaviour
 
     private void CompleteBattle()
     {
-        bool lose = myHP <= 0;
+        bool lose = myHP <= float.Epsilon;
         bool win = rivalHP <= float.Epsilon;
 
         if (win && lose)
