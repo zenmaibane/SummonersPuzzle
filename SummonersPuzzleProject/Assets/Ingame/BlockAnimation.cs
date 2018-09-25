@@ -180,13 +180,25 @@ public class BlockAnimation : MonoBehaviour
 		}
         //print("gridInfo : " + gridInfo);
 
-        nowPos = new Vector2Int(x, y);
+		// すべて埋まってる列に積もうとした時
+		if(gridInfo.monsterPos[x, y] != null)
+		{
+			// 現段階では、マージ時のエフェクトを使って消すように実装
+			transform.Find("Light").GetComponent<SpriteRenderer>().enabled = true;
+			transform.Find("Light").GetComponent<SpriteRenderer>().sortingOrder = 3;
+			transform.Find("Light").GetComponent<BlockLight>().Merge();
+			GetComponent<SpriteRenderer>().enabled = false;
+		}
 
-        transform.position = gridInfo.centerCoordinate[x, y];
+        nowPos = new Vector2Int(x, y);
+		targetPos = nowPos;
+
+		transform.position = gridInfo.centerCoordinate[x, y];
 
         DropCheck();
-		print("IsArrived\t: " + IsArrived);
-		//targetPos = nowPos;
+		
+		
+		//print("IsArrived\t: " + IsArrived);
 	}
 
 	// 自分より上にブロックが無ければ上に詰める
@@ -195,12 +207,21 @@ public class BlockAnimation : MonoBehaviour
 		if (nowPos.y - 1 < 0)
 		{
 			// 最上部到達
+			if (transform.localScale.x >= 0.9f && IsArrived == false)
+			{
+				//print("最上部到達");
+			}
 			IsArrived = true;
 		}
 		else if (gridInfo.monsterPos[nowPos.x, nowPos.y - 1] != null)
 		{
+			if (transform.localScale.x >= 0.9f && IsArrived == false)
+			{
+				//print("ブロック到達");
+			}
 			// ブロック到達
 			IsArrived = true;
+			gridInfo.monsterPos[nowPos.x, nowPos.y] = this.gameObject;
 		}
 		else
 		{
