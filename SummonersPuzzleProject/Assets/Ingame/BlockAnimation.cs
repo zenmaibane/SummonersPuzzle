@@ -9,7 +9,7 @@ public class BlockAnimation : MonoBehaviour
 	public Vector2Int nowPos;
 	public Vector2Int targetPos;
 
-	private float moveSpeed = 5f;
+	private float moveSpeed = 20f;
 
 	private GridInfo gridInfo;   // 参照用
 	private ForceManager forceManager;
@@ -26,7 +26,7 @@ public class BlockAnimation : MonoBehaviour
 	{
 		gridInfo = transform.parent.GetComponent<GridInfo>();
 		forceManager = GameObject.Find("ForceManager").GetComponent<ForceManager>();
-
+		
 		// デバッグ用
 		//SetStartPos(2, 2);
 		//targetPos = new Vector2Int(2, 4);
@@ -52,11 +52,16 @@ public class BlockAnimation : MonoBehaviour
 			targetDir.y *= -1;     // 要素番号がマイナス　→　座標値としてはプラス方向
 			//print("targetDir : " + targetDir);
 
+			// 直前の「現在地と目的地の距離」を保持し、もし移動後に広がっていたら通り過ぎていることを判定する
+			float preDistance = Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position);
 			transform.position = new Vector3(transform.position.x + (targetDir.x * moveSpeed * Time.deltaTime), transform.position.y + (targetDir.y * moveSpeed * Time.deltaTime));
+			float nowDistance = Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position);
 
 			//print("distance = " + Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position));
-			if (Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position) <= 0.1f)
+			//if (Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position) <= 0.1f)
+			if (preDistance < nowDistance)
 			{
+				transform.position = gridInfo.centerCoordinate[targetPos.x, targetPos.y];
 				if (deleteFlag)
 				{
 					//gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<Block>().blockData.Rank += gridInfo.monsterPos[nowPos.x, nowPos.y].GetComponent<Block>().blockData.Rank;

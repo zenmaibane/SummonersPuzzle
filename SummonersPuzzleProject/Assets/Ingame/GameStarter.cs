@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameStarter : MonoBehaviour {
 
 	private int startWordApperSpeed = 20;
-	private int startWordWaitTime   = 40;
+	private int startWordWaitTime   = 10;
 	//private int startWordBigTime    = 20;
 
 	private GameObject gameStartImage;
@@ -43,7 +43,7 @@ public class GameStarter : MonoBehaviour {
 					}
 					else
 					{
-						gameStartImage.GetComponent<RectTransform>().localScale *= 1.02f;
+						gameStartImage.GetComponent<RectTransform>().localScale *= 1.03f;
 						startImage.color = new Color(startImage.color.r, startImage.color.g, startImage.color.b, startImage.color.a * 0.9f);
 					}
 				}
