@@ -23,6 +23,7 @@ public class HPManager : MonoBehaviour
 	private ForceManager forceManager;
 
 	private int delayCounter; // 被ダメージメソッドがPhoton側から連続で2回実行されてしまったので、それを防ぐカウンター
+	private int delayCounterFinish;  // 勝負がついた後すぐにシーン遷移すると、片方がゲーム画面に残されてしまうので、それを防ぐカウンター
 
     void Start()
     {
@@ -38,16 +39,28 @@ public class HPManager : MonoBehaviour
         rivalHPChanger.SetMaxHP(rivalMaxHP);
 
 		forceManager = GameObject.Find("ForceManager").GetComponent<ForceManager>();
+
+		delayCounterFinish = -1;
 	}
 
     void Update()
     {
         if (delayCounter > 0) delayCounter--;
-        if (IsBattleFinished())
+
+        if (IsBattleFinished() && delayCounterFinish == -1)
         {
-            CompleteBattle();
-        }
-    }
+			delayCounterFinish = 50;
+		}
+		if (delayCounterFinish > 0)
+		{
+			delayCounterFinish--;
+			print("delayCounterFinish : " + delayCounterFinish);
+		} 
+		else if (delayCounterFinish == 0)
+		{
+			CompleteBattle();
+		}
+	}
 
     public void DamageRival(int totalRank)
     {
