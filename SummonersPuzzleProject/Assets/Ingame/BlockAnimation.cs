@@ -54,12 +54,14 @@ public class BlockAnimation : MonoBehaviour
 
 			// 直前の「現在地と目的地の距離」を保持し、もし移動後に広がっていたら通り過ぎていることを判定する
 			float preDistance = Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position);
-			transform.position = new Vector3(transform.position.x + (targetDir.x * moveSpeed * Time.deltaTime), transform.position.y + (targetDir.y * moveSpeed * Time.deltaTime));
-			float nowDistance = Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position);
+			Vector3 nextPos = new Vector3(transform.position.x + (targetDir.x * moveSpeed * Time.deltaTime), transform.position.y + (targetDir.y * moveSpeed * Time.deltaTime));
+			float nextDistance = Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], nextPos);
+			
+			//float nowDistance = Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position);
 
 			//print("distance = " + Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position));
 			//if (Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position) <= 0.1f)
-			if (preDistance < nowDistance)
+			if (preDistance < nextDistance)
 			{
 				transform.position = gridInfo.centerCoordinate[targetPos.x, targetPos.y];
 				if (deleteFlag)
@@ -85,6 +87,9 @@ public class BlockAnimation : MonoBehaviour
 					//Destroy(this.gameObject);
 				}
 				nowPos = targetPos;
+			}
+			else{
+				transform.position = nextPos;
 			}
 		}
 		else
