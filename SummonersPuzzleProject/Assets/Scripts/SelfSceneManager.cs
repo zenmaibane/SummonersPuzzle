@@ -28,7 +28,7 @@ public class SelfSceneManager : MonoBehaviour
         {
             instance = go.GetComponent<SelfSceneManager>() ?? go.AddComponent<SelfSceneManager>();
         }
-        
+
         if (UnityEngine.Application.isPlaying)
         {
             DontDestroyOnLoad(instance.gameObject);
@@ -56,21 +56,21 @@ public class SelfSceneManager : MonoBehaviour
 
     public void LoadHowToScene()
     {
-        Debug.Log("遊び方シーンを読み込んだよ");
-        Debug.Log("余裕があったらチュートリアル作るよ");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("HowTo");
     }
 
     public void LoadBattleScene()
     {
         // マッチングシーンの方が正しいそう
-		if(GameStateManager.Instance.PlayMode == PlayMode.VS){
-	        UnityEngine.SceneManagement.SceneManager.LoadScene("Matching");
-		}
-		else
-		{
-	        UnityEngine.SceneManagement.SceneManager.LoadScene("Ingame");
-		}
-		Debug.Log("バトルシーンを読み込んだよ");
+        if (GameStateManager.Instance.PlayMode == PlayMode.VS)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Matching");
+        }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Ingame");
+        }
+        Debug.Log("バトルシーンを読み込んだよ");
     }
 
     public void LoadResultScene()
