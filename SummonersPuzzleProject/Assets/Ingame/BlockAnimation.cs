@@ -63,7 +63,7 @@ public class BlockAnimation : MonoBehaviour
 			//if (Vector2.Distance(gridInfo.centerCoordinate[targetPos.x, targetPos.y], transform.position) <= 0.1f)
 			if (preDistance < nextDistance)
 			{
-				transform.position = gridInfo.centerCoordinate[targetPos.x, targetPos.y];
+				//transform.position = gridInfo.centerCoordinate[targetPos.x, targetPos.y];
 				if (deleteFlag)
 				{
 					//gridInfo.monsterPos[targetPos.x, targetPos.y].GetComponent<Block>().blockData.Rank += gridInfo.monsterPos[nowPos.x, nowPos.y].GetComponent<Block>().blockData.Rank;
@@ -102,8 +102,16 @@ public class BlockAnimation : MonoBehaviour
 
 			if (IsArrived == true && IsMerged == false)
 			{
+				
 				MergeCheck();
 				IsMerged = true;
+			}
+
+			if (IsArrived && IsMerged && transform.localScale.x >= 0.9f)
+			{
+				try{  // タッチ中はエラーが出るので無視する
+					transform.position = gridInfo.centerCoordinate[targetPos.x, targetPos.y];
+				}catch{}
 			}
 		}
 	}
@@ -177,6 +185,7 @@ public class BlockAnimation : MonoBehaviour
         transform.position = gridInfo.centerCoordinate[x, y];
 
         DropCheck();
+		print("IsArrived\t: " + IsArrived);
 		//targetPos = nowPos;
 	}
 
