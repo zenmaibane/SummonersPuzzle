@@ -61,8 +61,9 @@ public class Timer : MonoBehaviour
         var canSummon = (countTime - summonSpeedSec) >= float.Epsilon;
         if (canSummon)
         {
-            // 最上部のモンスターを消してダメージを与える
-            int totalRank = 0;
+			GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("summon", 0.5f);
+			// 最上部のモンスターを消してダメージを与える
+			int totalRank = 0;
             var delaySec = 0f;
             for (int i = 0; i < gridInfo.monsterPos.GetLength(0); i++)
             {

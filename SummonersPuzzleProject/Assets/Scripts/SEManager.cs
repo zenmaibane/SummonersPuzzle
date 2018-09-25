@@ -21,7 +21,8 @@ public class SEManager : MonoBehaviour {
 	[SerializeField] private AudioClip win;
 	[SerializeField] private AudioClip lose;
 	[SerializeField] private AudioClip draw;
-	
+	[SerializeField] private AudioClip forceGaugeMax;
+
 	void Start () {
 		audioSource = GetComponent<AudioSource>();
 

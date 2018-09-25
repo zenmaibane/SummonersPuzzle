@@ -563,17 +563,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decision: {fileID: 8300000, guid: 528c2aa7198146641ab9cf9714f04f51, type: 3}
-  back: {fileID: 0}
-  intoIngame: {fileID: 0}
-  shoot: {fileID: 0}
-  collide: {fileID: 0}
-  merge: {fileID: 0}
-  summon: {fileID: 0}
-  attack: {fileID: 0}
-  damage: {fileID: 0}
-  win: {fileID: 0}
-  lose: {fileID: 0}
-  draw: {fileID: 0}
+  back: {fileID: 8300000, guid: 0050e9fd4f3596e4bb98e08a6f6f78f9, type: 3}
+  charaChoice: {fileID: 8300000, guid: f6f06da8b520f1443946dfd5ef3d1c81, type: 3}
+  intoIngame: {fileID: 8300000, guid: c805d861b505f4f458e54729acb407ad, type: 3}
+  shoot: {fileID: 8300000, guid: bb0e7dbb7faeb764aa3550a96bbbfdfb, type: 3}
+  collide: {fileID: 8300000, guid: e913d418a53cbf847a5ad1879de2d4cb, type: 3}
+  merge: {fileID: 8300000, guid: b77d5f4e6893e874783c1a93dc2da638, type: 3}
+  summon: {fileID: 8300000, guid: cba9d58b04ef8104e9a749a7b50c84b2, type: 3}
+  attack: {fileID: 8300000, guid: abb7ac10be091dd4591edf451ce738fe, type: 3}
+  damage: {fileID: 8300000, guid: 128da8c619e948d429773fc8f00d4c6f, type: 3}
+  win: {fileID: 8300000, guid: 9e3f3614dad92b648af084ee58450eb2, type: 3}
+  lose: {fileID: 8300000, guid: a3a239d256f067741a645224565832c4, type: 3}
+  draw: {fileID: 8300000, guid: c3c215c4565566943af74632a9780769, type: 3}
 --- !u!1 &1043671375
 GameObject:
   m_ObjectHideFlags: 0
