@@ -72,6 +72,7 @@ public class BlockShooter : MonoBehaviour
                     if (newBlock != null)
                     {
                         SetBlockPosition(neighborCol);
+						newBlock.transform.Find("Light").GetComponent<BlockLight>().SetTarget();
                     }
                 }
 
@@ -82,6 +83,7 @@ public class BlockShooter : MonoBehaviour
                     {
                         Debug.Log("turai");
                         newBlock.GetComponent<BlockAnimation>().SetStartPos(cols.IndexOf(neighborCol), 5);
+						newBlock.transform.Find("Light").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     newBlock = null;
                 }
