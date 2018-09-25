@@ -42,7 +42,8 @@ public class CharaSelectSceneController : MonoBehaviour
     void OnClickBackButton()
     {
         SelfSceneManager.Instance.LoadHomeScene();
-    }
+		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("back", 0.5f);
+	}
 
     void OnClickHaganeButton()
     {
@@ -64,7 +65,8 @@ public class CharaSelectSceneController : MonoBehaviour
 
     void SelectChara(CharaName charaName)
     {
-        int index = (int)charaName;
+		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("charaChoice", 0.5f);
+		int index = (int)charaName;
         for (var i = 0; i < characters.transform.childCount; i++)
         {
             if (i == index)
@@ -97,6 +99,7 @@ public class CharaSelectSceneController : MonoBehaviour
             charaDataGenerator.GenerateCharaData(selectedChara);
         Debug.Log(selectedChara);
         SelfSceneManager.Instance.LoadBattleScene();
-    }
+		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("intoIngame", 0.5f);
+	}
 
 }

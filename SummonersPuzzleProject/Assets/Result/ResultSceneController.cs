@@ -35,18 +35,20 @@ public class ResultSceneController : MonoBehaviour
         switch (battleResult)
         {
             case BattleResult.Win:
-            case BattleResult.Draw:
+			case BattleResult.Draw:
                 result.transform.Find("Win").gameObject.SetActive(true);
                 result.transform.Find("Lose").gameObject.SetActive(false);
                 backGround.transform.Find("Win").gameObject.SetActive(true);
                 backGround.transform.Find("Lose").gameObject.SetActive(false);
-                break;
+				GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("win", 0.5f);
+				break;
             case BattleResult.Lose:
                 result.transform.Find("Win").gameObject.SetActive(false);
                 result.transform.Find("Lose").gameObject.SetActive(true);
                 backGround.transform.Find("Win").gameObject.SetActive(false);
                 backGround.transform.Find("Lose").gameObject.SetActive(true);
-                break;
+				GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("lose", 0.5f);
+				break;
             default:
                 throw new ArgumentException($"{Enum.GetName(typeof(BattleResult), battleResult)} Data is not defined.");
         }

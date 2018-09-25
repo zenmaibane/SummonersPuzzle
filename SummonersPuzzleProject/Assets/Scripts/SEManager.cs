@@ -10,6 +10,7 @@ public class SEManager : MonoBehaviour {
 
 	[SerializeField] private AudioClip decision;
 	[SerializeField] private AudioClip back;
+	[SerializeField] private AudioClip charaChoice;
 	[SerializeField] private AudioClip intoIngame;
 	[SerializeField] private AudioClip shoot;
 	[SerializeField] private AudioClip collide;
