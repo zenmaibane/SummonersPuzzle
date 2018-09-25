@@ -31,13 +31,18 @@ public class AttackAnimation : MonoBehaviour
     GameObject myChara;
     GameObject rivalChara;
 
-    bool finishedSummonAnimation = false;
     float moveSpeed = 2.0f;
+
+    public int SummonTotalRank { get; set; }
+    public int Damage { get; set; }
+    private HPManager HPManager;
 
     void Start()
     {
         myChara = GameObject.Find("MyChara");
         rivalChara = GameObject.Find("RivalChara");
+
+        HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();
     }
 
     void Update()
@@ -48,6 +53,7 @@ public class AttackAnimation : MonoBehaviour
             if (this.transform.position.x - rivalChara.transform.position.x >= float.Epsilon)
             {
                 Destroy(this.gameObject);
+                HPManager.DamageRival(SummonTotalRank);
             }
         }
         else
@@ -56,6 +62,7 @@ public class AttackAnimation : MonoBehaviour
             if (this.transform.position.x - myChara.transform.position.x <= float.Epsilon)
             {
                 Destroy(this.gameObject);
+                HPManager.BeHurt(Damage);
             }
         }
         this.transform.position += new Vector3(0, Mathf.Sin(360 * Time.time * Mathf.Deg2Rad) / 30, 0);
