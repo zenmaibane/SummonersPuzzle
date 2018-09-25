@@ -24,7 +24,7 @@ public class BlockLight : MonoBehaviour {
 			//transform.localScale *= (alphaSpeed * Time.deltaTime) / 10000.0f;
 			float nextScale = transform.localScale.x + (alphaSpeed * Time.deltaTime);
 			transform.localScale = new Vector3(nextScale, nextScale);
-			print(transform.localScale + "\t" + (alphaSpeed * Time.deltaTime));
+			//print(transform.localScale + "\t" + (alphaSpeed * Time.deltaTime));
 			Color color = GetComponent<SpriteRenderer>().color;
 			color = new Color(color.r, color.g, color.b, color.a - alphaSpeed * Time.deltaTime);
 			GetComponent<SpriteRenderer>().color = color;
