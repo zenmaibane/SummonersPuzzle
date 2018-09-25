@@ -6,9 +6,11 @@ public class PhotonVariable : Photon.MonoBehaviour
 {
 	private GameObject hpManager;
 	public int attackDamage;
+	public string charaName;
 	//public int getHP;
 
-	void Start () {
+	void Start()
+	{
 		//attackDamage = Random.Range(0, 100);
 		attackDamage = 0;
 	}
@@ -18,15 +20,15 @@ public class PhotonVariable : Photon.MonoBehaviour
 		if (stream.isWriting)
 		{
 			stream.SendNext(attackDamage);
-			//stream.SendNext(_fuga);
+			stream.SendNext(charaName);
 
 		}
 		else
 		{
 			attackDamage = (int)stream.ReceiveNext();
-			//_fuga = (int)stream.ReceiveNext();
+			charaName = (string)stream.ReceiveNext();
 
-			if(hpManager == null)
+			if (hpManager == null)
 			{
 				hpManager = GameObject.Find("HPManager");
 			}
