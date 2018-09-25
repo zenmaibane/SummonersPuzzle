@@ -48,18 +48,12 @@ public class BlockGenerator : MonoBehaviour
 
     private BlockData GenerateBlockData()
     {
-        // リリース用
-        // var charaData = GameStateManager.Instance.MyCharaData;
-        // int rank = (int)Math.Round((double)UnityEngine.Random.Range(
-        //     charaData.MinSummonLevel, charaData.MaxSummonLevel
-        //     ));
-        // BlockColor[] blockColors = charaData.SummonBlockColors;
-        // Debug.Log(GameStateManager.Instance.MyCharaData.CharaName);
+        var charaData = GameStateManager.Instance.MyCharaData;
+        int rank = (int)Math.Round((double)UnityEngine.Random.Range(
+            charaData.MinSummonLevel, charaData.MaxSummonLevel
+            ));
 
-        // デバッグ用
-        int rank = (debugCounter % 2) + 1;  // 1と2を交互に出す
-        debugCounter++;
-        BlockColor[] blockColors = { BlockColor.Red };
+        BlockColor[] blockColors = charaData.SummonBlockColors;
 
         int randomColor = (int)Math.Round(UnityEngine.Random.Range(0.0f, blockColors.Length - 1));
         BlockData blockData = new BlockData(rank, blockColors[randomColor]);
@@ -74,13 +68,10 @@ public class BlockGenerator : MonoBehaviour
 	*/
     private BlockData DebugGenerateBlockData()
     {
-        // TODO: キャラ性能によって生成するランクの範囲を変える
-        //int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 5.0f));
-        int rank = (int)Math.Round(UnityEngine.Random.Range(1.0f, 2.0f));
+        var instance = GameStateManager.Instance;
+        int rank = (int)UnityEngine.Random.Range(instance.MyCharaData.MinSummonLevel, instance.MyCharaData.MaxSummonLevel);
 
-        // TODO: キャラが使える色に応じたものを取得する(現状は3色からランダム)
-        //BlockColor[] blockColors = { BlockColor.Red, BlockColor.Yellow, BlockColor.Green };
-        BlockColor[] blockColors = { BlockColor.Red };
+        BlockColor[] blockColors = instance.MyCharaData.SummonBlockColors;
 
         int randomColor = (int)Math.Round(UnityEngine.Random.Range(0.0f, blockColors.Length - 1));
         BlockData blockData = new BlockData(rank, blockColors[randomColor]);
