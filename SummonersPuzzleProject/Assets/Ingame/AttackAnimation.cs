@@ -36,6 +36,8 @@ public class AttackAnimation : MonoBehaviour
     public int SummonTotalRank { get; set; }
     public int Damage { get; set; }
     private HPManager HPManager;
+    private DamageEffectAnimation damageEffectAnimation;
+
 
     void Start()
     {
@@ -43,6 +45,7 @@ public class AttackAnimation : MonoBehaviour
         rivalChara = GameObject.Find("RivalChara");
 
         HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();
+        damageEffectAnimation = GameObject.Find("DamageEffect").GetComponent<DamageEffectAnimation>();
     }
 
     void Update()
@@ -63,6 +66,7 @@ public class AttackAnimation : MonoBehaviour
             {
                 Destroy(this.gameObject);
                 HPManager.BeHurt(Damage);
+                damageEffectAnimation.ShowDamageEffect();
             }
         }
         this.transform.position += new Vector3(0, Mathf.Sin(360 * Time.time * Mathf.Deg2Rad) / 30, 0);
