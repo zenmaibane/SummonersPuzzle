@@ -11,10 +11,11 @@ public class NextBlocksController : MonoBehaviour
     private readonly Vector2[] nextBlocksPosition =
         new Vector2[]
         {
-            new Vector2(-2, 0),
-            new Vector2(-2, 1),
-            new Vector2(-2, 2),
-            new Vector2(-2, 3)
+            new Vector2(-0.06f, -4.74f),
+            new Vector2(-0.88f, -4.74f),
+            new Vector2(-1.7f, -4.74f),
+            new Vector2(-2.52f, -4.74f),
+            new Vector2(-3.34f, -4.74f)
         };
     private GameObject blockPrefab;
 
@@ -47,12 +48,17 @@ public class NextBlocksController : MonoBehaviour
         var block = GenerateBlockGameObject();
         block.GetComponent<SpriteRenderer>().sortingOrder = 1;
         block.GetComponent<BlockImageManager>().ImageReload();
+        block.transform.position = nextBlocksPosition[this.transform.childCount - 2];
 
         // i=0 はShoot対象なのでi=1開始
         for (var i = 1; i < this.transform.childCount; i++)
         {
             var go = this.transform.GetChild(i).gameObject;
-            go.transform.position = nextBlocksPosition[i-1];
+            if (go.GetComponent<NextBlockAnimation>() == null)
+            {
+                go.AddComponent<NextBlockAnimation>();
+            }
+            go.GetComponent<NextBlockAnimation>().TargetPosition = nextBlocksPosition[i - 1];
             go.GetComponent<BlockImageManager>().ImageReload();
         }
     }
