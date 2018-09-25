@@ -27,7 +27,8 @@ public class BlockLight : MonoBehaviour {
 			GetComponent<SpriteRenderer>().color = color;
 			if (transform.localScale.x > 10)
 			{
-				Destroy(this.gameObject);
+				Destroy(transform.parent.gameObject);
+				//Destroy(this.gameObject);
 
 				// デバッグ用
 				/*
@@ -48,6 +49,7 @@ public class BlockLight : MonoBehaviour {
 
 	public void Merge()
 	{
+		GetComponent<SpriteRenderer>().enabled = true;
 		merge = true;
 	}
 

@@ -73,8 +73,11 @@ public class BlockAnimation : MonoBehaviour
 
 					// TODO: nullにした列だけIsArrivedをfalseにしたほうが処理が軽くなりそう
 					// (今は、すべてのブロックが常に上に詰めれるかを判定してしまっている。)
+					transform.Find("Light").GetComponent<BlockLight>().Merge();
 
-					Destroy(this.gameObject);
+					// 下の処理は、BlockLight.csで、波紋アニメーションが終わった後に削除するようにした
+					GetComponent<SpriteRenderer>().enabled = false;
+					//Destroy(this.gameObject);
 				}
 				nowPos = targetPos;
 			}
