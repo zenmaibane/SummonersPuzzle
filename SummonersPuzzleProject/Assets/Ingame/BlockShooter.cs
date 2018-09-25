@@ -77,10 +77,8 @@ public class BlockShooter : MonoBehaviour
 
                 if (Input.GetMouseButtonUp(0))
                 {
-                    Debug.Log("hai");
                     if (newBlock != null && newBlock.GetComponent<BlockAnimation>() != null)
                     {
-                        Debug.Log("turai");
                         newBlock.GetComponent<BlockAnimation>().SetStartPos(cols.IndexOf(neighborCol), 5);
                     }
                     newBlock = null;
