@@ -157,10 +157,13 @@ public class BlockAnimation : MonoBehaviour
 		{
 			gridInfo = GameObject.Find("BlockArea").GetComponent<GridInfo>();
 		}
-		//print("gridInfo : " + gridInfo);
-		nowPos = new Vector2Int(x, y);
-		transform.position = gridInfo.centerCoordinate[x, y];
-		DropCheck();
+        //print("gridInfo : " + gridInfo);
+
+        nowPos = new Vector2Int(x, y);
+
+        transform.position = gridInfo.centerCoordinate[x, y];
+
+        DropCheck();
 		//targetPos = nowPos;
 	}
 
