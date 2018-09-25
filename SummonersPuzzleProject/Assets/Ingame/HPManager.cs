@@ -13,15 +13,16 @@ using UnityEngine.UI;
 public class HPManager : MonoBehaviour
 {
     private GameObject photonObject;
-    private int myMaxHP;
+	private int myMaxHP;
     private int rivalMaxHP;
     [SerializeField] private int myHP;
     [SerializeField] private int rivalHP;
 
     private HPChanger myHPChanger;
     private HPChanger rivalHPChanger;
+	private ForceManager forceManager;
 
-    private int delayCounter; // 被ダメージメソッドがPhoton側から連続で2回実行されてしまったので、それを防ぐカウンター
+	private int delayCounter; // 被ダメージメソッドがPhoton側から連続で2回実行されてしまったので、それを防ぐカウンター
 
     void Start()
     {
@@ -35,7 +36,9 @@ public class HPManager : MonoBehaviour
 
         myHPChanger.SetMaxHP(myMaxHP);
         rivalHPChanger.SetMaxHP(rivalMaxHP);
-    }
+
+		forceManager = GameObject.Find("ForceManager").GetComponent<ForceManager>();
+	}
 
     void Update()
     {
@@ -49,7 +52,7 @@ public class HPManager : MonoBehaviour
     public void DamageRival(int totalRank)
     {
         //TODO: 実際のダメージ計算式は考える必要がある(ブーストゲージ考慮含め)
-        int resultDamage = totalRank * 10;
+        int resultDamage = totalRank * 10 * Mathf.CeilToInt(forceManager.force);
 
 
         // ライバルにダメージを与える処理
