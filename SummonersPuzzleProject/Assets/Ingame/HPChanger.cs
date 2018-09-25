@@ -37,6 +37,8 @@ public class HPChanger : MonoBehaviour
     {
         this.nowHP = HP;
 
+		if (this.nowHP < 0) this.nowHP = 0;
+
         if (HPText == null)
         {
             HPText = transform.Find("Text").GetComponent<Text>();
