@@ -12,12 +12,19 @@ public class AttackManager : MonoBehaviour
 
     private GameObject monster1Prefab;
 
+    private int delayCounter; // 被ダメージメソッドがPhoton側から連続で2回実行されてしまったので、それを防ぐカウンター
+
 
     void Start()
     {
         monster1Prefab = (GameObject)Resources.Load("Monster1");
         myChara = GameObject.Find("MyChara");
         rivalChara = GameObject.Find("RivalChara");
+    }
+
+    void Update()
+    {
+        if (delayCounter > 0) delayCounter--;
     }
 
     public void Attack(int totalRank)
@@ -33,6 +40,11 @@ public class AttackManager : MonoBehaviour
     }
     public void Attacked(int damage)
     {
+        if (delayCounter > 0)
+        {
+            return;   // Photon側から連続でこのメソッドを呼び出されることを防ぐ
+        }
+        delayCounter = 100;
         if (damage > 0)
         {
             Debug.Log($"Attacked {damage}");

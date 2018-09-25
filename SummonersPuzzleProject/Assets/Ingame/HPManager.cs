@@ -99,7 +99,6 @@ public class HPManager : MonoBehaviour
 
         //TODO: 体力ゲージへの反映、ゲームオーバー判定、被ダメージエフェクトの処理
         myHPChanger.SetNowHP(myHP);
-
     }
 
     private string GenerateHPformat(int nowHP, int maxHP)
