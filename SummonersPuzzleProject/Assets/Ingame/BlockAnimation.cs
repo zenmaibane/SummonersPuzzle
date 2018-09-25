@@ -9,7 +9,7 @@ public class BlockAnimation : MonoBehaviour
 	public Vector2Int nowPos;
 	public Vector2Int targetPos;
 
-	private float moveSpeed = 20f;
+	private float moveSpeed = 10f;
 
 	private GridInfo gridInfo;   // 参照用
 	private ForceManager forceManager;
