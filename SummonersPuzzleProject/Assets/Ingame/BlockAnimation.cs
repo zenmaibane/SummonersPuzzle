@@ -12,6 +12,7 @@ public class BlockAnimation : MonoBehaviour
 	private float moveSpeed = 0.05f;
 
 	private GridInfo gridInfo;   // 参照用
+	private ForceManager forceManager;
 
 	//[SerializeField] private bool isArrived = false;
 	//[SerializeField] private bool isMerged = false;
@@ -20,9 +21,11 @@ public class BlockAnimation : MonoBehaviour
 
 	private bool deleteFlag = false; // 合体中で、移動が終わり次第削除すべきかどうか
 
+
 	void Start()
 	{
 		gridInfo = transform.parent.GetComponent<GridInfo>();
+		forceManager = GameObject.Find("ForceManager").GetComponent<ForceManager>();
 
 		// デバッグ用
 		//SetStartPos(2, 2);
@@ -144,6 +147,7 @@ public class BlockAnimation : MonoBehaviour
 			}
 		}
 		GetComponent<Block>().blockData.Rank += addRank;
+		forceManager.AddForce((float)addRank / 10);
 	}
 
 	// ブロックの初期位置を指定
