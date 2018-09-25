@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class NextBlockAnimation : MonoBehaviour
 {
     public Vector2 TargetPosition { get; set; }
-    private float moveSpeed = 0.1f;
-
+    public float MoveSpeed { get; set; } = 0.2f;
     void Update()
     {
         Vector2 nowPosition = this.transform.position;
@@ -19,7 +18,7 @@ public class NextBlockAnimation : MonoBehaviour
             if (targetDir.y != 0) targetDir.y /= Mathf.Abs(targetDir.y);
             targetDir.y *= -1;
             // classify = (input > 0) ? "positive" : "negative";
-            transform.position += new Vector3(targetDir.x * moveSpeed, targetDir.y * moveSpeed);
+            transform.position += new Vector3(targetDir.x * MoveSpeed, targetDir.y * MoveSpeed);
             if (transform.position.x > TargetPosition.x)
             {
                 transform.position = new Vector3(TargetPosition.x, transform.position.y);
