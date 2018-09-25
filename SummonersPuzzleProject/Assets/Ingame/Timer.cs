@@ -71,7 +71,12 @@ public class Timer : MonoBehaviour
                 {
                     totalRank += monster.GetComponent<Block>().blockData.Rank;
                     BlockLight light = monster.transform.Find("Light").GetComponent<BlockLight>();
-                    StartCoroutine(DelayMethod(delaySec, () => { light.Merge(); }));
+                    Color color = monster.GetComponent<SpriteRenderer>().color;
+                    StartCoroutine(DelayMethod(delaySec, () =>
+                    {
+                        monster.GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, 0);
+                        light.Merge();
+                    }));
                     delaySec += 0.1f;
                 }
             }
