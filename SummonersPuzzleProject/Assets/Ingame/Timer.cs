@@ -25,13 +25,8 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        // リリース
-        // summonSpeedSec = GameStateManager.Instance.MyCharaData.SummonSpeedSec;
+        summonSpeedSec = GameStateManager.Instance.MyCharaData.SummonSpeedSec;
         isPlaying = false;
-
-        //これはデバッグ用
-        //StartGameTimer();
-        summonSpeedSec = 15;
 
         blockArea = GameObject.Find("BlockArea");
         attackManager = GameObject.Find("AttackManager").GetComponent<AttackManager>();

@@ -12,9 +12,6 @@ public class ResultSceneController : MonoBehaviour
     {
         homeButton?.onClick.AddListener(OnClickHomeButton);
 
-        //本番時には消す
-        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
-
         var charaIndex = (int)GameStateManager.Instance.MyCharaData.CharaName;
         var characters = GameObject.Find("Characters");
         for (var i = 0; i < characters.transform.childCount; i++)

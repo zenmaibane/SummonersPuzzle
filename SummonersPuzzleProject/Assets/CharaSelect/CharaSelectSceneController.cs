@@ -33,10 +33,6 @@ public class CharaSelectSceneController : MonoBehaviour
         characters = GameObject.Find("Characters");
         charaSelectButtons = GameObject.Find("CharaSelectButtons");
         SelectChara(CharaName.Hagane);
-
-        //リリース時には消す
-        SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
-        GameStateManager.Instantiate(GameObject.Find("GameStateManager"));
     }
 
     void OnClickBackButton()

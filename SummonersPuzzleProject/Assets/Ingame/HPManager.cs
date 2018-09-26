@@ -27,8 +27,8 @@ public class HPManager : MonoBehaviour
 
     void Start()
     {
-        myMaxHP = 300;     // TODO: 選択されているキャラ情報から初期HPを取得する必要あり
-        rivalMaxHP = 300;  // TODO: 敵のから初期HPを取得する必要あり
+        myMaxHP = 100;     
+        rivalMaxHP = 100;  
         myHP = myMaxHP;
         rivalHP = rivalMaxHP;
 

@@ -24,9 +24,6 @@ public class GameStateManager : MonoBehaviour
     }
     public static void Instantiate(GameObject go)
     {
-        // 最初のシーンからやらなくてもいいようなデバッグ用関数
-        GenerateDebugInstance(go);
-
         if (instance == null)
         {
             instance = go.GetComponent<GameStateManager>() ?? go.AddComponent<GameStateManager>();
@@ -35,18 +32,6 @@ public class GameStateManager : MonoBehaviour
         if (UnityEngine.Application.isPlaying)
         {
             DontDestroyOnLoad(instance.gameObject);
-        }
-    }
-
-    private static void GenerateDebugInstance(GameObject gameStateManager)
-    {
-        if (gameStateManager == null && instance == null)
-        {
-            Debug.Log("Debug用のインスタンスを作成しました");
-            var prefab = (GameObject)Resources.Load("GameStateManager");
-            var gameobject = Instantiate(prefab, Vector2.zero, Quaternion.identity);
-            instance = gameobject.GetComponent<GameStateManager>();
-            Debug.Log(instance);
         }
     }
 }

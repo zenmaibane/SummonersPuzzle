@@ -22,7 +22,7 @@ public class SelfSceneManager : MonoBehaviour
     public static void Instantiate(GameObject go)
     {
         // 最初のシーンからやらなくてもいいようなデバッグ用関数
-        GenerateDebugInstance(go);
+        // GenerateDebugInstance(go);
 
         if (instance == null)
         {
