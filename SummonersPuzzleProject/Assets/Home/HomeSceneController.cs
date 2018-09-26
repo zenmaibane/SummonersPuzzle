@@ -10,29 +10,37 @@ public class HomeSceneController : MonoBehaviour
     [SerializeField] private Button soloButton;
     [SerializeField] private Button howToButton;
 
+    void Awake()
+    {
+        Application.targetFrameRate = 300;
+    }
+
     void Start()
     {
         vsButton?.onClick.AddListener(OnClickVsButton);
         soloButton?.onClick.AddListener(OnClickSoloButton);
         howToButton?.onClick.AddListener(OnClickHowToButton);
-        
+
         SelfSceneManager.Instantiate(GameObject.Find("SceneManager"));
         GameStateManager.Instantiate(GameObject.Find("GameStateManager"));
     }
 
-    void OnClickVsButton(){
+    void OnClickVsButton()
+    {
         SelfSceneManager.Instance.LoadVsScene();
-		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
+        GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
     }
 
-	void OnClickSoloButton(){
+    void OnClickSoloButton()
+    {
         SelfSceneManager.Instance.LoadSoloScene();
-		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
-	}
+        GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
+    }
 
-	void OnClickHowToButton(){
+    void OnClickHowToButton()
+    {
         SelfSceneManager.Instance.LoadHowToScene();
-		GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
-	}
+        GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("decision", 0.5f);
+    }
 
 }
