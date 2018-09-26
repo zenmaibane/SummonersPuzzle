@@ -57,6 +57,7 @@ public class AttackAnimation : MonoBehaviour
             {
                 Destroy(this.gameObject);
                 HPManager.DamageRival(SummonTotalRank);
+                GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("attack", 0.5f);
             }
         }
         else
@@ -67,6 +68,7 @@ public class AttackAnimation : MonoBehaviour
                 Destroy(this.gameObject);
                 HPManager.BeHurt(Damage);
                 damageEffectAnimation.ShowDamageEffect();
+                GameObject.Find("SoundManager").GetComponent<SEManager>().PlaySE("damage", 0.5f);
             }
         }
         this.transform.position += new Vector3(0, Mathf.Sin(360 * Time.time * Mathf.Deg2Rad) / 30, 0);
