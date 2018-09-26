@@ -19,11 +19,11 @@ public class AttackAnimation : MonoBehaviour
             var image = this.transform.Find("Image").GetComponent<SpriteRenderer>();
             if (value)
             {
-                image.flipX = false;
+                image.flipX = true;
             }
             else
             {
-                image.flipX = true;
+                image.flipX = false;
             }
             this.myAttack = value;
         }
@@ -31,7 +31,7 @@ public class AttackAnimation : MonoBehaviour
     GameObject myChara;
     GameObject rivalChara;
 
-    float moveSpeed = 2.0f;
+    float moveSpeed = 2.4f;
 
     public int SummonTotalRank { get; set; }
     public int Damage { get; set; }
