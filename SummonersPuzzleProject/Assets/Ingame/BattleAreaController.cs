@@ -29,8 +29,6 @@ public class BattleAreaController : MonoBehaviour
                 }
                 int rivalCharaNumber = shareDataClone.GetComponent<PhotonVariable>().charaNumber;
                 rivalCharaData = GetComponent<CharaDataGenerator>().GenerateCharaData((CharaName)rivalCharaNumber);
-				var rivalHPChanger = GameObject.Find("Canvas/RivalHP").GetComponent<HPChanger>();
-        		rivalHPChanger.SetMaxHP(rivalCharaData.MaxHP);
             }
 
             var myChara = GameObject.Find("MyChara");
