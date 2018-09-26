@@ -18,7 +18,7 @@ public class BattleAreaController : MonoBehaviour
             Debug.Log($"PlayMode: {GameStateManager.Instance.PlayMode}");
             if (GameStateManager.Instance.PlayMode == PlayMode.Solo)
             {
-                rivalCharaData = GetComponent<CharaDataGenerator>().GenerateCharaData(CharaName.Hagane);
+                rivalCharaData = GetComponent<CharaDataGenerator>().GenerateCharaData(CharaName.Kakashi);
             }
             else
             {
@@ -29,6 +29,8 @@ public class BattleAreaController : MonoBehaviour
                 }
                 int rivalCharaNumber = shareDataClone.GetComponent<PhotonVariable>().charaNumber;
                 rivalCharaData = GetComponent<CharaDataGenerator>().GenerateCharaData((CharaName)rivalCharaNumber);
+				var rivalHPChanger = GameObject.Find("Canvas/RivalHP").GetComponent<HPChanger>();
+        		rivalHPChanger.SetMaxHP(rivalCharaData.MaxHP);
             }
 
             var myChara = GameObject.Find("MyChara");
