@@ -13,22 +13,22 @@ using UnityEngine.UI;
 public class HPManager : MonoBehaviour
 {
     private GameObject photonObject;
-	private int myMaxHP;
+    private int myMaxHP;
     private int rivalMaxHP;
     [SerializeField] private int myHP;
     [SerializeField] private int rivalHP;
 
     private HPChanger myHPChanger;
     private HPChanger rivalHPChanger;
-	private ForceManager forceManager;
+    private ForceManager forceManager;
 
-	private int delayCounter; // 被ダメージメソッドがPhoton側から連続で2回実行されてしまったので、それを防ぐカウンター
-	private int delayCounterFinish;  // 勝負がついた後すぐにシーン遷移すると、片方がゲーム画面に残されてしまうので、それを防ぐカウンター
+    private int delayCounter; // 被ダメージメソッドがPhoton側から連続で2回実行されてしまったので、それを防ぐカウンター
+    private int delayCounterFinish;  // 勝負がついた後すぐにシーン遷移すると、片方がゲーム画面に残されてしまうので、それを防ぐカウンター
 
     void Start()
     {
-        myMaxHP = 100;     
-        rivalMaxHP = 100;  
+        myMaxHP = 1000;
+        rivalMaxHP = 1000;
         myHP = myMaxHP;
         rivalHP = rivalMaxHP;
 
@@ -38,10 +38,10 @@ public class HPManager : MonoBehaviour
         myHPChanger.SetMaxHP(myMaxHP);
         rivalHPChanger.SetMaxHP(rivalMaxHP);
 
-		forceManager = GameObject.Find("ForceManager").GetComponent<ForceManager>();
+        forceManager = GameObject.Find("ForceManager").GetComponent<ForceManager>();
 
-		delayCounterFinish = -1;
-	}
+        delayCounterFinish = -1;
+    }
 
     void Update()
     {
@@ -49,23 +49,28 @@ public class HPManager : MonoBehaviour
 
         if (IsBattleFinished() && delayCounterFinish == -1)
         {
-			delayCounterFinish = 50;
-		}
-		if (delayCounterFinish > 0)
-		{
-			delayCounterFinish--;
-			print("delayCounterFinish : " + delayCounterFinish);
-		} 
-		else if (delayCounterFinish == 0)
-		{
-			CompleteBattle();
-		}
-	}
+            delayCounterFinish = 50;
+        }
+        if (delayCounterFinish > 0)
+        {
+            delayCounterFinish--;
+            print("delayCounterFinish : " + delayCounterFinish);
+        }
+        else if (delayCounterFinish == 0)
+        {
+            CompleteBattle();
+        }
+    }
 
     public void DamageRival(int totalRank)
     {
         //TODO: 実際のダメージ計算式は考える必要がある(ブーストゲージ考慮含め)
-        int resultDamage = totalRank * 10 * Mathf.CeilToInt(forceManager.force);
+        var force = Mathf.CeilToInt(forceManager.force);
+        if (force == 0)
+        {
+            force = 1;
+        }
+        int resultDamage = totalRank * 10 * force;
 
 
         // ライバルにダメージを与える処理
