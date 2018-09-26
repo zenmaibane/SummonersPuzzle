@@ -9,7 +9,8 @@ public enum CharaName
 {
     Hagane,
     Nyantaso,
-    Kanade
+    Kanade,
+    Kakashi
 }
 
 public class CharaDataGenerator : MonoBehaviour
@@ -27,6 +28,9 @@ public class CharaDataGenerator : MonoBehaviour
             case CharaName.Kanade:
                 return new CharaData(CharaName.Kanade, new BlockColor[] { BlockColor.Red, BlockColor.Yellow, BlockColor.Green },
                                      maxHP: 1000, summonSpeedSec: 20f, minSummonLevel: 4, maxSummonLevel: 7);
+            case CharaName.Kakashi:
+                return new CharaData(CharaName.Kakashi, new BlockColor[] { BlockColor.Red },
+                                     maxHP: 10000, summonSpeedSec: 20f, minSummonLevel: 9, maxSummonLevel: 9);
             default:
                 throw new ArgumentException($"{Enum.GetName(typeof(CharaName), charaName)} Data is not defined.");
         }
