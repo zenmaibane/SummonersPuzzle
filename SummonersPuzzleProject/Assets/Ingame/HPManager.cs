@@ -27,8 +27,8 @@ public class HPManager : MonoBehaviour
 
     void Start()
     {
-        myMaxHP = 1000;
-        rivalMaxHP = 1000;
+        myMaxHP = 2500;
+        rivalMaxHP = 2500;
         myHP = myMaxHP;
         rivalHP = rivalMaxHP;
 
