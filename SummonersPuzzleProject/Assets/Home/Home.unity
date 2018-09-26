@@ -575,7 +575,7 @@ MonoBehaviour:
   win: {fileID: 8300000, guid: 9e3f3614dad92b648af084ee58450eb2, type: 3}
   lose: {fileID: 8300000, guid: a3a239d256f067741a645224565832c4, type: 3}
   draw: {fileID: 8300000, guid: c3c215c4565566943af74632a9780769, type: 3}
-  forceGaugeMax: {fileID: 0}
+  forceGaugeMax: {fileID: 8300000, guid: 886b3948ee236214c9a88e3b9e4a2b92, type: 3}
 --- !u!1 &1043671375
 GameObject:
   m_ObjectHideFlags: 0
